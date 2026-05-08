@@ -22,3 +22,10 @@ Build a lean, high-signal brand website with clear sections and practical value:
 - Clean section-based navigation
 - Accessible, minimal interface
 - Content-first growth path (articles, LinkedIn repurposing)
+
+## Status (slice 2)
+- Minimal Next.js foundation scaffold is implemented:
+  - App Router with `src/app` structure
+  - Brand section landing layout (hero + 4 core sections)
+  - Brand tokens and responsive, accessible markup
+- Blog pipeline, automation, and advanced SEO systems are still pending.

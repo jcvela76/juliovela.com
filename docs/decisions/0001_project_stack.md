@@ -7,6 +7,9 @@ Use **Next.js App Router + TypeScript** as the primary stack, with:
 - Framer Motion for restrained motion
 - Zod for content/frontmatter validation
 - Vercel for hosting
+- Local runtime control via `mise`:
+  - Node.js 22 LTS
+  - pnpm 10.33.4
 
 ## Rationale
 This stack balances speed, editorial clarity, and deployment ergonomics for a personal technology brand.

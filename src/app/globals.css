@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-red: #E11D2E;
+  --brand-space: #1F2329;
+  --brand-graphite: #2B2F36;
+  --brand-interface: #9AA0A6;
+  --brand-soft: #F5F6F7;
+  --brand-white: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--brand-soft);
+  color: var(--brand-white);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main {
+  min-height: calc(100vh - 4rem);
+}
+
+.brand-mark {
+  letter-spacing: 0.34rem;
+}

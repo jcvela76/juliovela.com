@@ -23,6 +23,17 @@ Use before merge or release handoff of any implementation slice.
 - Accessibility checks when UI exists.
 - Responsive smoke checks when UI exists.
 - No hidden failures.
+- Every project validation must include the default suite unless blocked:
+  - `pnpm lint`
+  - `pnpm typecheck`
+  - `pnpm test`
+  - `pnpm build`
+  - `pnpm check:all`
+  - `git diff --check`
+  - `git status --short --branch`
+- Never report validation as passed unless all required checks succeed.
+- If dependencies are unavailable due install/network issues, report validation as `BLOCKED` and list the exact blocker and rerun command.
+- Validation is expected to run using project-local toolchain (`mise exec -- pnpm ...`) whenever the repo declares `.mise.toml`.
 
 ## Checklist
 - [ ] lint: pass/fail and notes
@@ -31,6 +42,8 @@ Use before merge or release handoff of any implementation slice.
 - [ ] build: pass/fail and notes
 - [ ] content validation: pass/fail when applicable
 - [ ] accessibility and responsive notes
+- [ ] if blocked: record blocker and command to rerun
+- [ ] never mark task ready without passing required validation checks
 
 ## Example prompt
 "Run a slice-level quality audit and return explicit pass/fail for all required checks with gaps identified."

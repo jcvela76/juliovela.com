@@ -50,6 +50,18 @@ Favor practical, reusable content that can appear both on blog and LinkedIn, wit
 - Every implementation task requires validation before handoff.
 - Include validation results for each task.
 - For implementation work, require: lint, typecheck, tests, build, and content checks as applicable.
+- Every code or configuration change must end with the default validation suite before handoff whenever dependencies are available:
+  - `pnpm lint`
+  - `pnpm typecheck`
+  - `pnpm test`
+  - `pnpm build`
+  - `pnpm check:all`
+  - `git diff --check`
+  - `git status --short --branch`
+- Never mark validation as passed unless every required command above succeeds.
+- If one check fails, fix only scope-safe issues in this slice and rerun the full suite.
+- If a required check is blocked by environment issues (for example DNS/registry when installing deps), report it as BLOCKED and do not mark the change ready to commit.
+- Do not commit implementation code until validation passes.
 
 ## 9. Docker and Port Safety
 - Before using Docker, check active ports with `lsof` and `docker ps`.
