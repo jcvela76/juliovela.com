@@ -1,0 +1,14 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Project-local guidance only.
+# Global MCP/secrets should remain in ~/.codex/config.toml or environment variables.
+# Do not include machine-specific absolute paths or unsupported assumptions.
+
+
+[features]
+child_agents_md = true
+
+# Project-local skills are stored in ./skills.
+# If this Codex version does not automatically load project-local skills,
+# treat these folders as repo playbooks and reference them manually.
+# Do not place secrets, tokens, MCP credentials, or personal machine paths here.
