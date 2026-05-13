@@ -2,8 +2,8 @@ export const brandIdentity = {
   mark: "://",
   wordmark: "JULIO VELA",
   subtitle: "TECH SOLUTIONS",
-  tagline:
-    "Practical technology guidance for modern builders.",
+  displaySubtitle: "T E C H   S O L U T I O N S",
+  tagline: "Practical technology guidance for modern builders.",
 };
 
 export const brandPalette = {
@@ -18,5 +18,5 @@ export const brandPalette = {
 export const heroCopy = {
   title: "Practical technology guidance for modern builders.",
   subtitle:
-    "I share clear, practical insights on AI, automation, software, and digital tools—helping professionals and businesses make smarter technology decisions.",
+    "I share clear, practical insights on AI, automation, software, and digital tools - helping professionals and businesses make smarter technology decisions.",
 };

@@ -1,25 +1,28 @@
 type SectionNavLink = {
-  id: string;
   label: string;
+  href: string;
 };
 
 type SectionNavProps = {
   items: SectionNavLink[];
+  className?: string;
 };
 
-export default function SectionNav({ items }: SectionNavProps) {
+export default function SectionNav({ items, className = "" }: SectionNavProps) {
   return (
-    <ul className="grid gap-2 md:grid-cols-2 xl:grid-cols-4">
+    <nav aria-label="Section navigation">
+      <ul className={`flex flex-wrap justify-end gap-2 text-xs font-medium uppercase text-[color:var(--brand-interface)] ${className}`}>
       {items.map((item) => (
-        <li key={item.id}>
+        <li key={item.href}>
           <a
-            href={`#${item.id}`}
-            className="block rounded-lg border border-white/15 bg-[color:var(--brand-graphite)] p-3 transition-colors hover:border-[color:var(--brand-red)] hover:text-[color:var(--brand-red)]"
+            href={item.href}
+            className="inline-flex border-b border-transparent px-1 py-1 transition-colors hover:border-[color:var(--brand-red)] hover:text-[color:var(--brand-red)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand-red)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--brand-soft)]"
           >
             {item.label}
           </a>
         </li>
       ))}
-    </ul>
+      </ul>
+    </nav>
   );
 }

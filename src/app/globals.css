@@ -22,8 +22,10 @@ html {
 body {
   margin: 0;
   background: var(--brand-soft);
-  color: var(--brand-white);
+  color: var(--brand-space);
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -31,10 +33,123 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+}
+
+html,
+body {
+  scroll-padding-top: 5rem;
+}
+
 main {
   min-height: calc(100vh - 4rem);
 }
 
+.scroll-panel {
+  min-height: calc(100svh - 4.5rem);
+}
+
 .brand-mark {
-  letter-spacing: 0.34rem;
+  letter-spacing: 0;
+}
+
+.brand-subtitle {
+  letter-spacing: 0.42em;
+  word-spacing: 0.5em;
+}
+
+.brand-lockup {
+  animation: brand-fade 900ms ease-out both;
+}
+
+.hero-surface {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+}
+
+.brand-entrance .brand-mark {
+  animation: mark-reveal 900ms 180ms ease-out both;
+}
+
+.hero-scroll {
+  animation: fade-up 1.2s ease both;
+}
+
+.scroll-indicator {
+  width: 1px;
+  height: 1.5rem;
+  background: var(--brand-red);
+  animation: hero-scroll 2s ease-in-out infinite;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+
+  .scroll-panel {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+@keyframes brand-fade {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mark-reveal {
+  from {
+    opacity: 0;
+    transform: translateX(-0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-scroll {
+  0% {
+    transform: translateY(-25%);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translateY(25%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(65%);
+    opacity: 0.2;
+  }
 }
