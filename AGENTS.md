@@ -44,12 +44,34 @@ Favor practical, reusable content that can appear both on blog and LinkedIn, wit
 - Prefer project-local tooling, configuration, and lockfiles.
 - Do not modify system Node, pnpm, npm, Python, Docker, or global runtimes.
 - Do not install global tools.
+- Use the project runtime only in the active working terminal/session.
+- When a Node or pnpm version is required, use the project-local toolchain declared in `.mise.toml`, `.node-version`, `.nvmrc`, and `package.json`.
+- Prefer `mise exec -- pnpm ...` for project commands so the correct Node/pnpm versions are used without changing global machine versions.
+- Do not run commands that change the user's global/default Node, npm, or pnpm versions.
+- If the required local runtime is unavailable, document the setup blocker and exact local command to run instead of installing or switching global versions.
 - Keep the repository clean and auditable.
 
 ## 8. Testing and Quality Rules
 - Every implementation task requires validation before handoff.
 - Include validation results for each task.
 - For implementation work, require: lint, typecheck, tests, build, and content checks as applicable.
+- During live UI iteration, every code change must be followed by at least:
+  - `mise exec -- pnpm check:live`
+  - `git diff --check`
+  - `git status --short --branch`
+- Before final handoff or commit recommendation, run the full default validation suite.
+- Do not run `next build`, `mise exec -- pnpm build`, `mise exec -- pnpm check:final`, or `mise exec -- pnpm check:all` while relying on an active `next dev` preview.
+- If final build validation is required, stop the dev server first when possible, run final checks, then restart preview only with user approval.
+- If a dev server breaks after a build, recover by stopping the dev server, removing `.next`, and restarting `mise exec -- pnpm dev:local` only with user approval.
+- Every code or configuration change must end with the default validation suite before handoff whenever dependencies are available:
+  - `mise exec -- pnpm check:final`
+  - `mise exec -- pnpm check:all`
+  - `git diff --check`
+  - `git status --short --branch`
+- Never mark validation as passed unless every required command above succeeds.
+- If one check fails, fix only scope-safe issues in this slice and rerun the full suite.
+- If a required check is blocked by environment issues (for example DNS/registry when installing deps), report it as BLOCKED and do not mark the change ready to commit.
+- Do not commit implementation code until validation passes.
 
 ## 9. Docker and Port Safety
 - Before using Docker, check active ports with `lsof` and `docker ps`.
