@@ -28,15 +28,15 @@ Use before merge or release handoff of any implementation slice.
 - Never change global Node, npm, pnpm, or shell defaults in order to run checks.
 - If the local runtime is missing or cannot activate, report validation as `BLOCKED` with the exact local setup or rerun command.
 - During live UI iteration, every code change must be followed by at least:
-  - `mise exec -- pnpm lint`
-  - `mise exec -- pnpm test`
+  - `mise exec -- pnpm check:live`
+  - `git diff --check`
+  - `git status --short --branch`
 - Before final handoff or commit recommendation, require the full default validation suite.
-- If `next build` runs while a dev server is active, verify the preview afterward and do not restart/replace the running server without user approval.
+- Do not run `next build`, `mise exec -- pnpm build`, `mise exec -- pnpm check:final`, or `mise exec -- pnpm check:all` while relying on an active `next dev` preview.
+- If final build validation is required, stop the dev server first when possible, run final checks, then restart preview only with user approval.
+- If a dev server breaks after a build, recover by stopping the dev server, removing `.next`, and restarting `mise exec -- pnpm dev:local` only with user approval.
 - Every project validation must include the default suite unless blocked:
-  - `mise exec -- pnpm lint`
-  - `mise exec -- pnpm typecheck`
-  - `mise exec -- pnpm test`
-  - `mise exec -- pnpm build`
+  - `mise exec -- pnpm check:final`
   - `mise exec -- pnpm check:all`
   - `git diff --check`
   - `git status --short --branch`

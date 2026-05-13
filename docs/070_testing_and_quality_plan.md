@@ -18,16 +18,14 @@
 
 ## Default implementation validation (required)
 During live UI iteration, every code change must be followed by at least:
-- `mise exec -- pnpm lint`
-- `mise exec -- pnpm test`
+- `mise exec -- pnpm check:live`
+- `git diff --check`
+- `git status --short --branch`
 
 Before final handoff or commit recommendation, run the full validation suite below.
 
 Every future implementation slice requires running all available checks:
-- `mise exec -- pnpm lint`
-- `mise exec -- pnpm typecheck`
-- `mise exec -- pnpm test`
-- `mise exec -- pnpm build`
+- `mise exec -- pnpm check:final`
 - `mise exec -- pnpm check:all`
 - `git diff --check`
 - `git status --short --branch`
@@ -37,15 +35,12 @@ If a command is blocked by environment or dependency issues, mark validation as 
 
 ## Dev server preview safety
 - `next build` can rewrite `.next` while `next dev` is running.
-- After running a full build during a live preview session, verify the preview URL.
+- Do not run `mise exec -- pnpm build`, `mise exec -- pnpm check:final`, or `mise exec -- pnpm check:all` while relying on an active `next dev` preview.
+- Use `mise exec -- pnpm check:live` during browser review because it avoids `next build`.
+- For final validation, stop the dev server first when possible, run final checks, then restart the preview if visual review will continue.
 - Do not stop, restart, or replace an occupied dev-server port without user approval.
 - If the preview is broken after validation, report the port/process and ask whether to restart it or use a temporary alternate port.
-- During live browser UX review, prefer the short validation loop after each visual/code change:
-  - `mise exec -- pnpm lint`
-  - `mise exec -- pnpm test`
-  - `git diff --check`
-  - `git status --short --branch`
-- Run `mise exec -- pnpm build` and `mise exec -- pnpm check:all` before final handoff or commit recommendation, not repeatedly during an active preview session unless needed.
+- If approved, recover the preview by stopping the existing dev server, running `rm -rf .next`, and restarting with `mise exec -- pnpm dev:local`.
 
 ## CI intent
 - Install from lockfile
@@ -60,8 +55,6 @@ If a command is blocked by environment or dependency issues, mark validation as 
 - Runtime now uses project-local toolchain via `.mise.toml` (`node=22`, `pnpm=10.33.4`).
 - Validation and checks should be run with the project-local toolchain (`mise exec -- pnpm ...`).
 - Add/validate command sequence once dependencies are available:
-  - `mise exec -- pnpm lint`
-  - `mise exec -- pnpm typecheck`
-  - `mise exec -- pnpm test`
-  - `mise exec -- pnpm build`
+  - `mise exec -- pnpm check:live`
+  - `mise exec -- pnpm check:final`
   - `mise exec -- pnpm check:all`
