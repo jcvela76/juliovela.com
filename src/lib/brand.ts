@@ -2,7 +2,6 @@ export const brandIdentity = {
   mark: "://",
   wordmark: "JULIO VELA",
   subtitle: "TECH SOLUTIONS",
-  displaySubtitle: "T E C H   S O L U T I O N S",
   tagline: "Practical technology guidance for modern builders.",
 };
 

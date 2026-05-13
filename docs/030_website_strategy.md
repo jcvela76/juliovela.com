@@ -2,11 +2,11 @@
 
 ## Direction
 Build a lean, high-signal brand website with clear sections and practical value:
-- Hero
-- What I Cover
-- Featured Guides
-- Latest Articles
-- Projects / Experiments
+- Intro / approved logo lockup
+- About
+- Expertise
+- Services / Work With Me
+- Insights Preview
 - Contact
 
 ## Technical direction (planned)
@@ -19,13 +19,17 @@ Build a lean, high-signal brand website with clear sections and practical value:
 
 ## Experience goals
 - Fast, readable, responsive pages
-- Clean section-based navigation
+- Premium full-screen narrative scroll experience
+- Clean section-based navigation with smooth anchors
+- Header/navigation contrast that adapts to light and dark sections
 - Accessible, minimal interface
 - Content-first growth path (articles, LinkedIn repurposing)
 
 ## Status (slice 2)
 - Minimal Next.js foundation scaffold is implemented:
   - App Router with `src/app` structure
-  - Brand section landing layout (hero + 4 core sections)
+  - Approved `:// JULIO VELA / TECH SOLUTIONS` logo-first intro screen
+  - Full-screen scroll panels for About, Expertise, Services, Insights, and Contact
+  - Sticky header with adaptive light/dark contrast and active section underline
   - Brand tokens and responsive, accessible markup
 - Blog pipeline, automation, and advanced SEO systems are still pending.

@@ -23,12 +23,21 @@ Use before merge or release handoff of any implementation slice.
 - Accessibility checks when UI exists.
 - Responsive smoke checks when UI exists.
 - No hidden failures.
+- Use the project-local runtime for validation.
+- Prefer `mise exec -- pnpm ...` when `.mise.toml` is present.
+- Never change global Node, npm, pnpm, or shell defaults in order to run checks.
+- If the local runtime is missing or cannot activate, report validation as `BLOCKED` with the exact local setup or rerun command.
+- During live UI iteration, every code change must be followed by at least:
+  - `mise exec -- pnpm lint`
+  - `mise exec -- pnpm test`
+- Before final handoff or commit recommendation, require the full default validation suite.
+- If `next build` runs while a dev server is active, verify the preview afterward and do not restart/replace the running server without user approval.
 - Every project validation must include the default suite unless blocked:
-  - `pnpm lint`
-  - `pnpm typecheck`
-  - `pnpm test`
-  - `pnpm build`
-  - `pnpm check:all`
+  - `mise exec -- pnpm lint`
+  - `mise exec -- pnpm typecheck`
+  - `mise exec -- pnpm test`
+  - `mise exec -- pnpm build`
+  - `mise exec -- pnpm check:all`
   - `git diff --check`
   - `git status --short --branch`
 - Never report validation as passed unless all required checks succeed.

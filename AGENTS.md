@@ -44,18 +44,28 @@ Favor practical, reusable content that can appear both on blog and LinkedIn, wit
 - Prefer project-local tooling, configuration, and lockfiles.
 - Do not modify system Node, pnpm, npm, Python, Docker, or global runtimes.
 - Do not install global tools.
+- Use the project runtime only in the active working terminal/session.
+- When a Node or pnpm version is required, use the project-local toolchain declared in `.mise.toml`, `.node-version`, `.nvmrc`, and `package.json`.
+- Prefer `mise exec -- pnpm ...` for project commands so the correct Node/pnpm versions are used without changing global machine versions.
+- Do not run commands that change the user's global/default Node, npm, or pnpm versions.
+- If the required local runtime is unavailable, document the setup blocker and exact local command to run instead of installing or switching global versions.
 - Keep the repository clean and auditable.
 
 ## 8. Testing and Quality Rules
 - Every implementation task requires validation before handoff.
 - Include validation results for each task.
 - For implementation work, require: lint, typecheck, tests, build, and content checks as applicable.
+- During live UI iteration, every code change must be followed by at least:
+  - `mise exec -- pnpm lint`
+  - `mise exec -- pnpm test`
+- Before final handoff or commit recommendation, run the full default validation suite.
+- If a dev server is running, be aware that `next build` can rewrite `.next`; after a full build, verify the dev preview and restart or move ports only with user approval.
 - Every code or configuration change must end with the default validation suite before handoff whenever dependencies are available:
-  - `pnpm lint`
-  - `pnpm typecheck`
-  - `pnpm test`
-  - `pnpm build`
-  - `pnpm check:all`
+  - `mise exec -- pnpm lint`
+  - `mise exec -- pnpm typecheck`
+  - `mise exec -- pnpm test`
+  - `mise exec -- pnpm build`
+  - `mise exec -- pnpm check:all`
   - `git diff --check`
   - `git status --short --branch`
 - Never mark validation as passed unless every required command above succeeds.
