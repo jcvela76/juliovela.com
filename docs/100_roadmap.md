@@ -10,10 +10,12 @@
 
 ## Phase 2 (Website implementation)
 - Minimal Next.js app + sectioned homepage
+- Minimal legal transparency pages
 - MDX article pipeline
 - Slice 2: Minimal scaffold implemented and validated with mise-managed Node/pnpm.
 - Homepage polish: approved logo-first intro, full-screen scroll panels, adaptive header contrast, and active section navigation reviewed in local preview.
-- Next slice: run final full validation, then proceed to content validation and production-ready quality checks before adding any blog ingestion/automation.
+- Legal mini-slice: footer links, `/privacy`, and `/disclosures` implemented as pre-launch transparency pages.
+- Next slice: proceed to content validation and production-ready quality checks before adding any blog ingestion/automation.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

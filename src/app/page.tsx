@@ -2,6 +2,7 @@ import SiteHeader from "@/components/site-header";
 import HeroSection from "@/components/hero-section";
 import ContentSection from "@/components/content-section";
 import { about, expertise, insights, services } from "@/lib/site";
+import Link from "next/link";
 
 const contactEmail = "mailto:me@juliovela.com";
 
@@ -44,8 +45,12 @@ export default function HomePage() {
               </div>
               <div className="flex flex-wrap gap-x-5 gap-y-3">
                 <span>© 2026</span>
-                <span>Privacy before launch</span>
-                <span>Disclosures before launch</span>
+                <Link className="transition-colors hover:text-[color:var(--brand-red)]" href="/privacy">
+                  Privacy
+                </Link>
+                <Link className="transition-colors hover:text-[color:var(--brand-red)]" href="/disclosures">
+                  Disclosures
+                </Link>
               </div>
             </footer>
           </div>
