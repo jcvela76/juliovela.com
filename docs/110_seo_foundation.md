@@ -28,6 +28,11 @@ Rules for `/drafts-preview`:
 - `noindex`.
 - Blocked from `VERCEL_ENV=production`.
 
+Public blog visibility:
+- Preview/local `/blog` may render approved and published content.
+- Production `/blog` must render only published content.
+- Drafts must not appear in public blog routes.
+
 ## Required blog frontmatter
 Every blog draft should include:
 
@@ -103,6 +108,7 @@ Implement after public blog rendering exists:
 - Open Graph metadata
 
 Do not include draft URLs in the sitemap.
+Do not include `approved` preview-only URLs in the production sitemap.
 
 ## Structured data plan
 Consider later, after the first public article route exists:
@@ -128,7 +134,8 @@ Before a post can be published:
 - No draft-only notes remain in the article body.
 
 ## Current implementation status
-- Blog/public SEO rendering is not implemented yet.
+- Initial public blog rendering is planned for `/blog` and `/blog/[slug]`.
 - `content:validate` checks required SEO frontmatter for blog drafts.
 - `/drafts-preview` is available for local and Vercel Preview review only.
-- Public `/blog` and `/blog/[slug]` should come in a later controlled slice.
+- Public `/blog` should read only from `content/approved/blog/`.
+- Production blog rendering should include only `published` content.

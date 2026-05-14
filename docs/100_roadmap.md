@@ -20,7 +20,8 @@
 - Content folders, draft examples, image prompt example, and `content:validate` are part of the active content foundation branch.
 - Internal `/drafts-preview` route may be used for local/Vercel Preview review, but it is not a public blog.
 - SEO foundation is documented before the first real pre-production article.
-- Next slice after validation: consider public blog rendering and MDX routing, still without automation or auto-publishing.
+- Blog rendering audit: public routes should read only `content/approved/blog/`, render `approved` in preview/local, and render only `published` in production.
+- Blog rendering foundation branch: implement `/blog` and `/blog/[slug]` with approved/published visibility rules, still without automation or auto-publishing.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.
