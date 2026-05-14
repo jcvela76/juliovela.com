@@ -27,7 +27,7 @@ export default function OpenGraphImage() {
             alignItems: "center",
             display: "flex",
             flexDirection: "column",
-            gap: 34,
+            gap: 28,
             justifyContent: "center",
             letterSpacing: "-0.03em",
             padding: 72,
@@ -38,16 +38,16 @@ export default function OpenGraphImage() {
             style={{
               alignItems: "center",
               display: "flex",
-              gap: 44,
+              gap: 38,
               justifyContent: "center",
             }}
           >
             <span
               style={{
                 color: brandPalette.red,
-                fontSize: 104,
+                fontSize: 94,
                 fontWeight: 800,
-                letterSpacing: "-0.08em",
+                letterSpacing: "-0.1em",
                 lineHeight: 1,
               }}
             >
@@ -56,9 +56,9 @@ export default function OpenGraphImage() {
             <span
               style={{
                 color: brandPalette.spaceGray,
-                fontSize: 92,
+                fontSize: 88,
                 fontWeight: 800,
-                letterSpacing: "0.02em",
+                letterSpacing: "0.01em",
                 lineHeight: 1,
               }}
             >
@@ -68,23 +68,15 @@ export default function OpenGraphImage() {
           <div
             style={{
               color: brandPalette.interfaceGray,
-              fontSize: 34,
+              fontSize: 32,
               fontWeight: 400,
-              letterSpacing: "0.34em",
+              letterSpacing: "0.42em",
               lineHeight: 1,
               textTransform: "uppercase",
             }}
           >
-            {brandIdentity.subtitle}
+            {"T E C H   S O L U T I O N S"}
           </div>
-          <div
-            style={{
-              background: brandPalette.red,
-              height: 4,
-              marginTop: 10,
-              width: 96,
-            }}
-          />
         </div>
       </div>
     ),

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { isProductionContentEnvironment } from "@/lib/content/blog";
 import { readDraftPreviewItems } from "@/lib/content/drafts";
 import { createPageMetadata, noIndexRobots } from "@/lib/seo";
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 function isDraftPreviewAllowed() {
-  return process.env.VERCEL_ENV !== "production";
+  return !isProductionContentEnvironment();
 }
 
 function frontmatterValue(value: string | string[] | undefined) {

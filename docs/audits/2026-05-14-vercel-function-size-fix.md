@@ -24,6 +24,17 @@ Environment decision:
 - Do not add a long-lived `stg` branch yet.
 - Do not connect `juliovela.com` or change DNS until production readiness is explicitly approved.
 
+## Preview visibility clarification
+If a Vercel deployment is treated as production, preview-only routes intentionally return 404:
+- `/blog/choosing-the-right-ai-tool` returns 404 while the article is `approved`, not `published`.
+- `/drafts-preview` returns 404.
+
+For feature branch deployments, the app should treat non-`main` branches as review/preview environments even if Vercel exposes `VERCEL_ENV=production`.
+
+Rule:
+- Production content environment is `VERCEL_ENV=production` with `VERCEL_GIT_COMMIT_REF=main`, or no commit ref.
+- Non-`main` branch deployments may show `approved` content and `/drafts-preview`.
+
 ## Likely cause
 The content-backed routes read files from the repository using Node `fs`.
 
