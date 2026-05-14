@@ -175,6 +175,13 @@ Validation:
 - Inspect `/robots.txt`
 - Inspect `/sitemap.xml`
 
+Status:
+- Implemented in `feature/robots-sitemap-foundation`.
+- `robots.txt` allows public crawling but excludes `/drafts-preview`.
+- `sitemap.xml` includes public static routes.
+- `sitemap.xml` excludes draft preview URLs.
+- `sitemap.xml` excludes `approved` preview-only articles and includes only production-published articles.
+
 ### Slice 3: Open Graph image baseline
 Goal:
 - Add a clean default share image for the site.
