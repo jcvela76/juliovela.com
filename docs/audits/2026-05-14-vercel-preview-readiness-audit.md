@@ -79,6 +79,29 @@ Expected:
 - Do not commit `.vercel/`.
 - Do not add analytics or cookies until legal/privacy review is updated.
 
+## First deployment result
+The first Vercel deployment attempt from `main` failed.
+
+Failure:
+- A Serverless Function exceeded the 250 MB uncompressed maximum size.
+
+Affected routes reported by Vercel:
+- `/blog`
+- `/drafts-preview`
+- `/blog/[slug]`
+
+Large traced dependency:
+- `.pnpm-store/v10/files`
+
+Likely cause:
+- Content-backed routes use `fs` to read repo content.
+- Next.js output file tracing included the local pnpm store in serverless function bundles.
+
+Required fix before continuing:
+- Exclude `./.pnpm-store/**/*` from output file tracing.
+- Explicitly include only required content folders for content-backed routes.
+- Redeploy and confirm the warning/failure is gone.
+
 ## Recommendation
 Proceed with Vercel Preview setup through the Vercel Dashboard after this documentation branch is reviewed and merged.
 
