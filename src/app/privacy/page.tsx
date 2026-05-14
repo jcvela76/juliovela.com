@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Privacy | :// JULIO VELA",
+export const metadata: Metadata = createPageMetadata({
+  title: "Privacy",
   description: "Privacy notes for the Julio Vela Tech Solutions website.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

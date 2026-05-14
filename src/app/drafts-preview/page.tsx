@@ -1,15 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { readDraftPreviewItems } from "@/lib/content/drafts";
+import { createPageMetadata, noIndexRobots } from "@/lib/seo";
 
-export const metadata = {
-  title: "Drafts Preview | :// JULIO VELA",
+export const metadata: Metadata = createPageMetadata({
+  title: "Drafts Preview",
   description: "Internal draft review page for Julio Vela Tech Solutions content examples.",
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+  path: "/drafts-preview",
+  robots: noIndexRobots,
+});
 
 function isDraftPreviewAllowed() {
   return process.env.VERCEL_ENV !== "production";
