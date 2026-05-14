@@ -22,6 +22,8 @@ During live UI iteration, every code change must be followed by at least:
 - `git diff --check`
 - `git status --short --branch`
 
+`check:live` includes lint, typecheck, tests, and content validation. It intentionally avoids `next build`.
+
 Before final handoff or commit recommendation, run the full validation suite below.
 
 Every future implementation slice requires running all available checks:
@@ -29,6 +31,8 @@ Every future implementation slice requires running all available checks:
 - `mise exec -- pnpm check:all`
 - `git diff --check`
 - `git status --short --branch`
+
+`check:final` includes lint, typecheck, tests, content validation, and build.
 
 Never treat a change as validated unless every required command passes.
 If a command is blocked by environment or dependency issues, mark validation as `BLOCKED` and rerun once dependencies are installed.

@@ -1,0 +1,18 @@
+# Example topic queue for Julio Vela Tech Solutions.
+# Copy this file to topic_queue.yml for real local/editorial use.
+# Real topic queues should be reviewed in PR before automation consumes them.
+
+topics:
+  - title: "Choosing the right AI tool"
+    slug: "choosing-the-right-ai-tool"
+    status: "idea"
+    audience: "Professionals evaluating practical AI tools"
+    angle: "A simple framework for matching AI tools to real workflows"
+    priority: "medium"
+    tags:
+      - "AI tools"
+      - "workflows"
+      - "software strategy"
+    notes:
+      - "Avoid hype."
+      - "Focus on decision criteria and practical tradeoffs."
