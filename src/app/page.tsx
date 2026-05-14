@@ -1,10 +1,19 @@
+import type { Metadata } from "next";
 import SiteHeader from "@/components/site-header";
 import HeroSection from "@/components/hero-section";
 import ContentSection from "@/components/content-section";
 import { about, expertise, insights, services } from "@/lib/site";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 
 const contactEmail = "mailto:me@juliovela.com";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Julio Vela Tech Solutions | Practical Technology Guidance",
+  description:
+    "Julio Vela shares clear, practical insights on AI, automation, software strategy, web solutions, and digital tools.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (

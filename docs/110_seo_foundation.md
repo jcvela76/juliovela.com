@@ -127,13 +127,15 @@ Goal:
 
 Scope:
 - Global metadata in `src/app/layout.tsx`
+- Shared SEO helper in `src/lib/seo.ts`
 - `metadataBase` for `https://juliovela.com`
 - Title template for Julio Vela Tech Solutions
 - Open Graph defaults
 - Twitter card defaults
 - Robots defaults
-- Route metadata for `/`, `/blog`, `/privacy`, and `/disclosures`
+- Route metadata for `/`, `/blog`, `/privacy`, `/disclosures`, and `/drafts-preview`
 - Dynamic metadata for `/blog/[slug]`
+- Brand-aligned favicon and apple icon metadata
 
 Rules:
 - Approved preview articles may be visible locally and in Vercel Preview.
@@ -145,6 +147,13 @@ Validation:
 - `mise exec -- pnpm check:live`
 - Browser review for `/`, `/blog`, and one article route
 - Final validation with `mise exec -- pnpm check:final` before commit
+
+Status:
+- Implemented in `feature/seo-metadata-foundation`.
+- `approved` article pages now emit `noindex`.
+- `published` article pages may emit canonical metadata.
+- Favicon metadata now references a minimal `://` SVG icon.
+- `robots.ts`, `sitemap.ts`, and OG image assets remain in later slices.
 
 ### Slice 2: robots and sitemap
 Goal:

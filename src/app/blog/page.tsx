@@ -1,10 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { readApprovedBlogPosts } from "@/lib/content/blog";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Blog | :// JULIO VELA",
+export const metadata: Metadata = createPageMetadata({
+  title: "Blog",
   description: "Practical technology articles from Julio Vela on AI, automation, software strategy, and web solutions.",
-};
+  path: "/blog",
+});
 
 export default function BlogIndexPage() {
   const posts = readApprovedBlogPosts();

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownBody from "@/components/markdown-body";
 import { findApprovedBlogPost, readApprovedBlogPosts } from "@/lib/content/blog";
+import { createPageMetadata, indexableRobots, noIndexRobots } from "@/lib/seo";
 
 type BlogPostPageProps = {
   params: {
@@ -18,23 +19,43 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
   const post = findApprovedBlogPost(params.slug);
 
   if (!post) {
-    return {};
+    return {
+      title: "Article not found",
+      robots: noIndexRobots,
+    };
   }
 
-  const metadata: Metadata = {
-    title: post.seoTitle,
+  const isPublished = post.status === "published";
+  const metadata = createPageMetadata({
+    title: post.seoTitle || post.title,
     description: post.description,
-    openGraph: {
-      title: post.ogTitle,
-      description: post.ogDescription,
-      type: "article",
-    },
+    path: `/blog/${post.slug}`,
+    robots: isPublished ? indexableRobots : noIndexRobots,
+    type: "article",
+  });
+
+  metadata.openGraph = {
+    ...metadata.openGraph,
+    title: post.ogTitle || post.seoTitle || post.title,
+    description: post.ogDescription || post.description,
+    type: "article",
+    publishedTime: isPublished ? post.date : undefined,
+    authors: [post.author],
+    tags: post.tags,
   };
 
-  if (post.canonicalUrl) {
+  metadata.twitter = {
+    ...metadata.twitter,
+    title: post.ogTitle || post.seoTitle || post.title,
+    description: post.ogDescription || post.description,
+  };
+
+  if (isPublished) {
     metadata.alternates = {
-      canonical: post.canonicalUrl,
+      canonical: post.canonicalUrl || `/blog/${post.slug}`,
     };
+  } else {
+    delete metadata.alternates;
   }
 
   return metadata;

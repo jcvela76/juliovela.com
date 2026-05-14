@@ -1,10 +1,38 @@
 import type { Metadata } from "next";
+import { indexableRobots, siteMetadata } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: ":// JULIO VELA | TECH SOLUTIONS",
-  description:
-    "Practical technology guidance on AI, automation, software strategy, and web solutions.",
+  metadataBase: new URL(siteMetadata.baseUrl),
+  applicationName: siteMetadata.name,
+  title: {
+    default: siteMetadata.title,
+    template: siteMetadata.titleTemplate,
+  },
+  description: siteMetadata.description,
+  authors: [{ name: "Julio Vela" }],
+  creator: "Julio Vela",
+  publisher: siteMetadata.name,
+  category: "technology",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg"],
+    apple: [{ url: "/apple-icon.svg", type: "image/svg+xml" }],
+  },
+  robots: indexableRobots,
+  openGraph: {
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    url: "/",
+    siteName: siteMetadata.name,
+    locale: siteMetadata.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+  },
 };
 
 export default function RootLayout({
