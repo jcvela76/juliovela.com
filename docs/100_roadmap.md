@@ -22,6 +22,7 @@
 - SEO foundation is documented before the first real pre-production article.
 - Blog rendering audit: public routes should read only `content/approved/blog/`, render `approved` in preview/local, and render only `published` in production.
 - Blog rendering foundation branch: implement `/blog` and `/blog/[slug]` with approved/published visibility rules, still without automation or auto-publishing.
+- First approved article preview: add one approved article under `content/approved/blog/` for local and Vercel Preview review without marking it as production published.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.
