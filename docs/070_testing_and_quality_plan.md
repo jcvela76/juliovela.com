@@ -51,6 +51,16 @@ If a command is blocked by environment or dependency issues, mark validation as 
 - Run lint/typecheck/tests/build/content validation
 - Fail fast on any check failure
 
+## Vercel Preview validation
+Before accepting a Vercel Preview deployment:
+- Confirm the deployment build passed.
+- Confirm the preview URL loads.
+- Review `/`, `/blog`, one article route, `/privacy`, and `/disclosures`.
+- Review `/robots.txt`, `/sitemap.xml`, and `/opengraph-image`.
+- Confirm preview-only approved articles are reviewable but not production-published.
+- Confirm no secrets, `.env.local`, or `.vercel/` files are committed.
+- Confirm no DNS or production domain changes were made.
+
 ## Governance
 - Every implementation task must include validation.
 - Track known gaps until implementation catches up.
