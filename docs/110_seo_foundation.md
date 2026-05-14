@@ -101,7 +101,7 @@ For published production articles:
 - If an article is syndicated or heavily reused elsewhere, decide the canonical source before publishing.
 
 ## Sitemap and robots plan
-Implement after public blog rendering exists:
+Implement now that public blog rendering exists:
 - `robots.txt`
 - `sitemap.xml`
 - Dynamic metadata for `/blog/[slug]`
@@ -111,12 +111,165 @@ Do not include draft URLs in the sitemap.
 Do not include `approved` preview-only URLs in the production sitemap.
 
 ## Structured data plan
-Consider later, after the first public article route exists:
+Consider after the first public article route and metadata rules are stable:
 - `Article`
 - `Person`
 - `WebSite`
 
-Do not add structured data until the public content model is stable.
+Do not add structured data until the public content model is stable enough to validate.
+
+## SEO and Vercel readiness sequence
+Use small PRs so SEO, hosting, DNS, and production publishing do not get mixed.
+
+### Slice 1: SEO metadata foundation
+Goal:
+- Add metadata defaults and route-specific metadata without changing hosting settings.
+
+Scope:
+- Global metadata in `src/app/layout.tsx`
+- `metadataBase` for `https://juliovela.com`
+- Title template for Julio Vela Tech Solutions
+- Open Graph defaults
+- Twitter card defaults
+- Robots defaults
+- Route metadata for `/`, `/blog`, `/privacy`, and `/disclosures`
+- Dynamic metadata for `/blog/[slug]`
+
+Rules:
+- Approved preview articles may be visible locally and in Vercel Preview.
+- Approved preview articles should be `noindex` until they become `published`.
+- Draft routes remain `noindex`.
+- No analytics, Vercel setup, DNS, or production changes in this slice.
+
+Validation:
+- `mise exec -- pnpm check:live`
+- Browser review for `/`, `/blog`, and one article route
+- Final validation with `mise exec -- pnpm check:final` before commit
+
+### Slice 2: robots and sitemap
+Goal:
+- Make crawl rules explicit.
+
+Scope:
+- `src/app/robots.ts`
+- `src/app/sitemap.ts`
+- Include homepage, blog index, legal pages, and production-published articles only.
+- Exclude `/drafts-preview`.
+- Exclude `approved` preview-only articles from production sitemap.
+
+Rules:
+- Do not include draft or preview-only URLs in production sitemap output.
+- Keep sitemap generated from the same content visibility rules as the blog.
+
+Validation:
+- `mise exec -- pnpm check:final`
+- Inspect `/robots.txt`
+- Inspect `/sitemap.xml`
+
+### Slice 3: Open Graph image baseline
+Goal:
+- Add a clean default share image for the site.
+
+Scope:
+- Static default OG image using the approved `:// JULIO VELA / TECH SOLUTIONS` identity
+- Metadata wiring to use the default image
+- Alt text documentation
+
+Rules:
+- No generic AI robot visuals.
+- No neon, circuit-board, or template-style graphics.
+- No per-article dynamic image generator yet unless needed later.
+
+Validation:
+- `mise exec -- pnpm check:final`
+- Browser or metadata inspection for OG tags
+
+### Slice 4: Vercel preview setup
+Goal:
+- Connect the repository to Vercel and confirm Preview deployments.
+
+Scope:
+- Vercel project setup
+- GitHub integration
+- Preview deploys for feature branches and PRs
+- Confirm build command and install command
+- Confirm Node 22.x on Vercel
+
+Rules:
+- No production promotion.
+- No domain or DNS change.
+- No real secrets in the repo.
+- Keep `.vercel/` out of git.
+
+Validation:
+- Vercel Preview URL loads
+- `/`, `/blog`, and one article route load
+- Vercel build succeeds
+- Preview still renders `approved` content for review
+
+### Slice 5: Production readiness review
+Goal:
+- Prepare for the first production launch without changing DNS yet.
+
+Scope:
+- Confirm only `published` articles render in production mode
+- Confirm SEO metadata
+- Confirm sitemap and robots behavior
+- Confirm legal pages
+- Confirm footer links
+- Confirm no draft preview links are public
+
+Rules:
+- Do not promote to production without explicit Julio approval.
+- Do not modify DNS without explicit Julio approval.
+- Do not publish article content unless status is intentionally changed to `published`.
+
+Validation:
+- `mise exec -- pnpm check:final`
+- Vercel Preview review
+- Manual launch checklist approval
+
+### Slice 6: Domain and production launch
+Goal:
+- Connect `juliovela.com` and launch production only after approval.
+
+Scope:
+- Vercel domain configuration
+- DNS instructions or DNS change with explicit approval
+- Production deployment confirmation
+- Post-launch smoke test
+
+Rules:
+- DNS changes require explicit approval.
+- Production deployment requires explicit approval.
+- If anything looks wrong, pause and roll back or fix in a new branch.
+
+Validation:
+- `https://juliovela.com`
+- `https://juliovela.com/blog`
+- `https://juliovela.com/privacy`
+- `https://juliovela.com/disclosures`
+- `https://juliovela.com/robots.txt`
+- `https://juliovela.com/sitemap.xml`
+
+## Do not mix in the same PR
+- SEO metadata and Vercel project linking
+- Vercel Preview setup and DNS changes
+- Content approval and production publishing
+- Analytics and legal/cookie changes
+- n8n automation and public publishing
+- Runtime/tooling changes and SEO implementation
+
+## Branch sequence
+Recommended branch names:
+- `feature/seo-metadata-foundation`
+- `feature/robots-sitemap-foundation`
+- `feature/og-image-baseline`
+- `feature/vercel-preview-setup`
+- `feature/production-readiness-review`
+- `feature/domain-production-launch`
+
+Each branch should start from latest `main`, include one responsibility, pass validation, and merge before the next branch starts.
 
 ## Approval checklist before publish
 Before a post can be published:
@@ -134,8 +287,9 @@ Before a post can be published:
 - No draft-only notes remain in the article body.
 
 ## Current implementation status
-- Initial public blog rendering is planned for `/blog` and `/blog/[slug]`.
+- Initial public blog rendering exists for `/blog` and `/blog/[slug]`.
 - `content:validate` checks required SEO frontmatter for blog drafts.
 - `/drafts-preview` is available for local and Vercel Preview review only.
 - Public `/blog` should read only from `content/approved/blog/`.
 - Production blog rendering should include only `published` content.
+- The first approved preview article exists for local and Vercel Preview review, but is not production-published.
