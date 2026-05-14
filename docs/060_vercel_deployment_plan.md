@@ -82,11 +82,33 @@ Expected behavior:
 ### First Preview acceptance criteria
 - Vercel build succeeds.
 - Preview URL loads without runtime errors.
+- No serverless function exceeds the Vercel uncompressed size limit.
+- Build logs do not show `.pnpm-store` bundled into application functions.
 - Metadata and SEO routes are present.
 - No secrets are committed.
 - `.vercel/` remains untracked.
 - No DNS or custom domain changes were made.
 - Production launch remains blocked pending explicit approval.
+
+## Serverless function size guardrail
+The first Vercel deployment attempt failed because serverless functions for content-backed routes exceeded the 250 MB uncompressed limit.
+
+Observed oversized routes:
+- `/blog`
+- `/blog/[slug]`
+- `/drafts-preview`
+
+Observed oversized traced dependency:
+- `.pnpm-store/v10/files`
+
+Mitigation:
+- `next.config.mjs` uses Next 14-compatible `experimental.outputFileTracingExcludes` to exclude `./.pnpm-store/**/*`.
+- `next.config.mjs` uses Next 14-compatible `experimental.outputFileTracingIncludes` to include only required content folders for content-backed routes.
+
+Follow-up validation:
+- Redeploy from the fix branch.
+- Confirm the Vercel build no longer reports `.pnpm-store` in large dependencies.
+- Confirm `/blog`, `/blog/[slug]`, `/drafts-preview`, `/robots.txt`, `/sitemap.xml`, and `/opengraph-image` still work.
 
 ## Step-by-step setup plan
 Use separate slices so hosting setup does not get mixed with SEO, DNS, or publishing.
