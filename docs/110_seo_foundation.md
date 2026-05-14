@@ -134,7 +134,8 @@ Before a post can be published:
 - No draft-only notes remain in the article body.
 
 ## Current implementation status
-- Blog/public SEO rendering is not implemented yet.
+- Initial public blog rendering is planned for `/blog` and `/blog/[slug]`.
 - `content:validate` checks required SEO frontmatter for blog drafts.
 - `/drafts-preview` is available for local and Vercel Preview review only.
-- Public `/blog` and `/blog/[slug]` should come in a later controlled slice.
+- Public `/blog` should read only from `content/approved/blog/`.
+- Production blog rendering should include only `published` content.

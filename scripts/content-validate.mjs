@@ -32,6 +32,7 @@ const requiredDirs = [
 ];
 
 const errors = [];
+const slugGroups = new Map();
 
 function fail(message) {
   errors.push(message);
@@ -158,6 +159,28 @@ function validateSeoFields(filePath, frontmatter) {
   }
 }
 
+function trackSlug(group, filePath, frontmatter) {
+  if (!frontmatter.slug) {
+    return;
+  }
+
+  const key = `${group}:${frontmatter.slug}`;
+  const existing = slugGroups.get(key);
+
+  if (existing) {
+    fail(`${filePath}: duplicate slug "${frontmatter.slug}" also used by ${existing}`);
+    return;
+  }
+
+  slugGroups.set(key, filePath);
+}
+
+function validateApprovedBlogStatus(filePath, frontmatter) {
+  if (!["approved", "published", "archived"].includes(frontmatter.status)) {
+    fail(`${filePath}: approved blog folder only allows approved, published, or archived status`);
+  }
+}
+
 for (const dir of requiredDirs) {
   if (!existsSync(path.join(root, dir))) {
     fail(`missing required directory: ${dir}`);
@@ -190,6 +213,7 @@ for (const filePath of walk("content/drafts/blog", [".mdx"])) {
   validateRequiredFields(filePath, frontmatter, requiredBlogFields);
   validateStatus(filePath, frontmatter);
   validateSeoFields(filePath, frontmatter);
+  trackSlug("draft-blog", filePath, frontmatter);
 
   if (!Array.isArray(frontmatter.tags) || frontmatter.tags.length === 0) {
     fail(`${filePath}: tags must include at least one item`);
@@ -206,6 +230,8 @@ for (const filePath of walk("content/approved/blog", [".mdx"])) {
   validateRequiredFields(filePath, frontmatter, requiredBlogFields);
   validateStatus(filePath, frontmatter);
   validateSeoFields(filePath, frontmatter);
+  validateApprovedBlogStatus(filePath, frontmatter);
+  trackSlug("approved-blog", filePath, frontmatter);
 }
 
 for (const filePath of walk("content/drafts/linkedin", [".md"])) {

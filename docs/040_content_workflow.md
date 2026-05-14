@@ -114,3 +114,9 @@ Visibility rules:
 - Vercel Production may render only `published`.
 - `draft`, `idea`, `ready_for_review`, and `archived` content must not render in public blog routes.
 - Drafts remain visible only in `/drafts-preview`.
+
+Validation rules:
+- Public blog slugs must be unique within `content/approved/blog/`.
+- Files in `content/approved/blog/` may use only `approved`, `published`, or `archived`.
+- `published` content must include approval metadata.
+- Production rendering must filter out `approved` content.
