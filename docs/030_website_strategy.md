@@ -35,4 +35,5 @@ Build a lean, high-signal brand website with clear sections and practical value:
   - Minimal Contact footer with Privacy and Disclosures links
   - Brand tokens and responsive, accessible markup
 - Minimal `/privacy` and `/disclosures` pages are implemented as pre-launch transparency pages.
-- Blog pipeline, automation, advanced SEO systems, analytics, cookies, and production deployment are still pending.
+- SEO foundation planning is documented, including required blog frontmatter and draft validation expectations.
+- Blog pipeline, public blog rendering, automation, advanced SEO implementation, analytics, cookies, and production deployment are still pending.

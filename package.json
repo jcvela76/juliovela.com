@@ -16,8 +16,9 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check:live": "pnpm lint && pnpm typecheck && pnpm test",
-    "check:final": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "content:validate": "node scripts/content-validate.mjs",
+    "check:live": "pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate",
+    "check:final": "pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate && pnpm build",
     "check:all": "pnpm check:final"
   },
   "dependencies": {
