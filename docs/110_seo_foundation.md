@@ -28,6 +28,11 @@ Rules for `/drafts-preview`:
 - `noindex`.
 - Blocked from `VERCEL_ENV=production`.
 
+Public blog visibility:
+- Preview/local `/blog` may render approved and published content.
+- Production `/blog` must render only published content.
+- Drafts must not appear in public blog routes.
+
 ## Required blog frontmatter
 Every blog draft should include:
 
@@ -103,6 +108,7 @@ Implement after public blog rendering exists:
 - Open Graph metadata
 
 Do not include draft URLs in the sitemap.
+Do not include `approved` preview-only URLs in the production sitemap.
 
 ## Structured data plan
 Consider later, after the first public article route exists:
