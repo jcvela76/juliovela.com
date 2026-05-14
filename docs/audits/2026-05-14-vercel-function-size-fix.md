@@ -14,6 +14,16 @@ Affected routes:
 - `/drafts-preview`
 - `/blog/[slug]`
 
+## Environment strategy after first deployment
+The project now has a Vercel URL:
+- `https://juliovela-com.vercel.app/`
+
+Environment decision:
+- Use `main` as Vercel Production.
+- Use PR/feature branch Preview deployments as staging/review.
+- Do not add a long-lived `stg` branch yet.
+- Do not connect `juliovela.com` or change DNS until production readiness is explicitly approved.
+
 ## Likely cause
 The content-backed routes read files from the repository using Node `fs`.
 
