@@ -200,6 +200,13 @@ Validation:
 - `mise exec -- pnpm check:final`
 - Browser or metadata inspection for OG tags
 
+Status:
+- Implemented in `feature/og-image-baseline`.
+- Default image route is `src/app/opengraph-image.tsx`.
+- Default OG image size is `1200x630`.
+- Metadata helper wires the image into Open Graph and Twitter metadata.
+- Per-article dynamic OG images remain a later optional slice.
+
 ### Slice 4: Vercel preview setup
 Goal:
 - Connect the repository to Vercel and confirm Preview deployments.
