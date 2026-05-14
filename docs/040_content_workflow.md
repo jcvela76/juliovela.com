@@ -100,9 +100,9 @@ Rules:
 - Drafts shown there remain `draft` until explicitly approved.
 
 ## Public blog rendering plan
-Public blog routes should be implemented in a later controlled slice.
+Public blog routes read only from approved content folders and never from draft folders.
 
-Planned public routes:
+Current public routes:
 - `/blog`
 - `/blog/[slug]`
 
@@ -114,6 +114,11 @@ Visibility rules:
 - Vercel Production may render only `published`.
 - `draft`, `idea`, `ready_for_review`, and `archived` content must not render in public blog routes.
 - Drafts remain visible only in `/drafts-preview`.
+
+First approved preview rule:
+- An article with `status: approved` may be reviewed in local and Vercel Preview.
+- It must not be treated as production-published content.
+- Promotion from `approved` to `published` requires explicit Julio approval in a later slice.
 
 Validation rules:
 - Public blog slugs must be unique within `content/approved/blog/`.
