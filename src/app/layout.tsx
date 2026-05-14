@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { indexableRobots, siteMetadata } from "@/lib/seo";
+import { defaultOgImage, indexableRobots, siteMetadata } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteMetadata.title,
     description: siteMetadata.description,
+    images: [defaultOgImage],
     url: "/",
     siteName: siteMetadata.name,
     locale: siteMetadata.locale,
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    images: [defaultOgImage.url],
     title: siteMetadata.title,
     description: siteMetadata.description,
   },
