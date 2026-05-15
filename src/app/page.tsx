@@ -37,7 +37,7 @@ export default function HomePage() {
                 Let&apos;s make the next technology decision clearer.
               </h2>
               <p className="mt-8 max-w-2xl text-xl leading-relaxed text-[color:var(--brand-graphite)] md:text-2xl">
-                For collaboration, feedback, or project questions, start with a direct note.
+                For collaboration, project questions, or practical technology guidance, start with a direct note.
               </p>
               <a
                 href={contactEmail}

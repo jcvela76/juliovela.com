@@ -189,6 +189,10 @@ Recommended note:
 
 > Coming next
 
+Follow-up audit note:
+
+After applying the first homepage copy pass, the `Insights` copy became public-facing, but the visual `Draft` badge still felt like internal workflow language. The recommendation is to remove the public `Draft` badge from the homepage while keeping draft/approval states inside the content workflow and preview tooling.
+
 ### Homepage Contact
 
 Current:
@@ -240,6 +244,7 @@ Scope:
 - Update homepage section copy in `src/lib/site.ts`.
 - Update homepage contact supporting sentence in `src/app/page.tsx`.
 - Update blog index headline and description in `src/app/blog/page.tsx`.
+- Remove internal `Draft` badge language from the public homepage Insights section.
 - Keep the visual structure unchanged.
 
 Do not include:
@@ -317,4 +322,3 @@ Proceed with Slice 1: Sharpen homepage and blog positioning.
 Reason:
 
 It improves the public message quickly, keeps scope small, and does not risk the already stable layout, SEO, or content workflow.
-

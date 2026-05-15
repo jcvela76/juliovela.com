@@ -27,7 +27,7 @@ test.describe("public smoke routes", () => {
     await expectNoConsoleErrors(page, async () => {
       await page.goto("/blog");
       await expect(page).toHaveTitle(/Blog | Julio Vela Tech Solutions/);
-      await expect(page.getByRole("heading", { name: "Practical technology notes." })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Practical guides for better technology decisions." })).toBeVisible();
     });
   });
 

@@ -5,7 +5,8 @@ import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Blog",
-  description: "Practical technology articles from Julio Vela on AI, automation, software strategy, and web solutions.",
+  description:
+    "Clear writing on AI tools, automation, software strategy, and web decisions focused on what is useful, reliable, and worth adopting.",
   path: "/blog",
 });
 
@@ -25,9 +26,12 @@ export default function BlogIndexPage() {
 
         <div className="mt-16 border-b border-[color:var(--brand-graphite)]/10 pb-10">
           <p className="text-sm font-semibold uppercase text-[color:var(--brand-red)]">Blog</p>
-          <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-none md:text-7xl">Practical technology notes.</h1>
+          <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-none md:text-7xl">
+            Practical guides for better technology decisions.
+          </h1>
           <p className="mt-6 max-w-3xl text-xl leading-relaxed text-[color:var(--brand-graphite)]">
-            Articles on AI workflows, automation, software strategy, web solutions, and technology decisions.
+            Clear writing on AI tools, automation, software strategy, and web decisions - focused on what is useful,
+            reliable, and worth adopting.
           </p>
         </div>
 
