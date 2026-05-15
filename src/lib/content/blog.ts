@@ -4,6 +4,7 @@ import { parseDraftDocument } from "@/lib/content/drafts";
 
 const approvedBlogDir = "content/approved/blog";
 const productionEnv = "production";
+const productionBranch = "main";
 
 export type BlogStatus = "approved" | "published" | "archived";
 
@@ -52,22 +53,36 @@ function listField(value: string | string[] | undefined) {
   return Array.isArray(value) ? value : [];
 }
 
-export function isBlogStatusVisible(status: string, vercelEnv = process.env.VERCEL_ENV) {
-  if (vercelEnv === productionEnv) {
+export function isProductionContentEnvironment(
+  vercelEnv = process.env.VERCEL_ENV,
+  gitCommitRef = process.env.VERCEL_GIT_COMMIT_REF,
+) {
+  return vercelEnv === productionEnv && (!gitCommitRef || gitCommitRef === productionBranch);
+}
+
+export function isBlogStatusVisible(
+  status: string,
+  vercelEnv = process.env.VERCEL_ENV,
+  gitCommitRef = process.env.VERCEL_GIT_COMMIT_REF,
+) {
+  if (isProductionContentEnvironment(vercelEnv, gitCommitRef)) {
     return status === "published";
   }
 
   return status === "approved" || status === "published";
 }
 
-export function readApprovedBlogPosts(vercelEnv = process.env.VERCEL_ENV): BlogPost[] {
+export function readApprovedBlogPosts(
+  vercelEnv = process.env.VERCEL_ENV,
+  gitCommitRef = process.env.VERCEL_GIT_COMMIT_REF,
+): BlogPost[] {
   return walk(approvedBlogDir, [".mdx"])
     .map((filePath) => {
       const content = readFileSync(path.join(process.cwd(), filePath), "utf8");
       const { body, frontmatter } = parseDraftDocument(content);
       const status = stringField(frontmatter.status);
 
-      if (!isBlogStatusVisible(status, vercelEnv)) {
+      if (!isBlogStatusVisible(status, vercelEnv, gitCommitRef)) {
         return null;
       }
 
@@ -92,6 +107,10 @@ export function readApprovedBlogPosts(vercelEnv = process.env.VERCEL_ENV): BlogP
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
-export function findApprovedBlogPost(slug: string, vercelEnv = process.env.VERCEL_ENV) {
-  return readApprovedBlogPosts(vercelEnv).find((post) => post.slug === slug) ?? null;
+export function findApprovedBlogPost(
+  slug: string,
+  vercelEnv = process.env.VERCEL_ENV,
+  gitCommitRef = process.env.VERCEL_GIT_COMMIT_REF,
+) {
+  return readApprovedBlogPosts(vercelEnv, gitCommitRef).find((post) => post.slug === slug) ?? null;
 }

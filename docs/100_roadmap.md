@@ -25,6 +25,7 @@
 - First approved article preview: add one approved article under `content/approved/blog/` for local and Vercel Preview review without marking it as production published.
 - SEO and Vercel readiness should proceed in separate slices: SEO metadata, robots/sitemap, OG image baseline, Vercel Preview setup, production readiness review, then domain/production launch.
 - Vercel Preview setup slice: document dashboard setup, build settings, Node `22.x`, preview validation, and launch guardrails before any real DNS or production changes.
+- Vercel environment strategy: use PR Preview deployments as staging/review for now; keep `main` as production and defer a dedicated `stg` branch/domain until needed.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

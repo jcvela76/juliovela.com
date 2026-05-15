@@ -8,23 +8,53 @@
 - Vercel runtime target: Node `22.x`
 - Production branch target: `main`
 - Preview branch pattern: all feature branches and PRs
-- Real Vercel project settings are not configured in this repo.
+- Vercel project exists.
+- Current Vercel URL: `https://juliovela-com.vercel.app/`
 - `.vercel/` must remain untracked.
 
 ## Environment model
-- Branch previews for validation
-- Production from `main` after explicit approval
+- `main` maps to Vercel Production.
+- Feature branches and PRs map to Vercel Preview deployments.
+- Preview deployments are the current staging/review environment.
+- Do not create a dedicated `stg` branch yet.
+- A dedicated `stg` branch or `stg.juliovela.com` domain may be added later only if the review process needs a stable staging URL.
 
 ## Rules
 - No automatic production deploys.
 - No DNS changes without explicit approval.
 - Validate build before deployment.
 - Document env vars in `.env.example` only (no real values).
+- Do not connect `juliovela.com` until production readiness is approved.
 
 ## Future config approach
 - Keep deployments preview-first
 - Maintain clear environment separation
 - Track deployment commands/documentation in CI docs before enabling
+
+## Environment strategy decision
+Decision:
+- Use Vercel Preview deployments as staging/review for now.
+- Keep `main` as the only production branch.
+- Do not maintain a long-lived `stg` branch yet.
+
+Why:
+- The project is still early and benefits from small PR-based review.
+- Each PR already gets an isolated Vercel Preview URL.
+- Avoiding a `stg` branch prevents extra merge choreography.
+- A fixed staging branch/domain can be added later if review needs become more formal.
+
+Current workflow:
+- Create a feature branch.
+- Open a PR.
+- Review the Vercel Preview deployment.
+- Merge to `main` only after validation and approval.
+- Treat `main` as production deployment, but do not connect the custom domain until launch approval.
+
+Content visibility:
+- `approved` content may be reviewed in local and Vercel Preview contexts.
+- `published` content is the only content intended for production indexing.
+- Sitemap output excludes preview-only approved content.
+- Production launch still requires explicit Julio approval.
 
 ## First Vercel Preview setup checklist
 Use the Vercel Dashboard first. Do not add CLI tokens, `.vercel/`, or project IDs to the repository.
