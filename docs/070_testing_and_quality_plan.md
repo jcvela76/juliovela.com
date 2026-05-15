@@ -28,11 +28,14 @@ Before final handoff or commit recommendation, run the full validation suite bel
 
 Every future implementation slice requires running all available checks:
 - `mise exec -- pnpm check:final`
+- `mise exec -- pnpm test:browser`
 - `mise exec -- pnpm check:all`
 - `git diff --check`
 - `git status --short --branch`
 
 `check:final` includes lint, typecheck, tests, content validation, and build.
+`test:browser` runs Playwright smoke tests. By default it validates a local built app on port `19100`; set `PLAYWRIGHT_BASE_URL=https://juliovela-com.vercel.app` to smoke test production or a Vercel Preview URL.
+`check:all` includes `check:final` and browser smoke tests.
 
 Never treat a change as validated unless every required command passes.
 If a command is blocked by environment or dependency issues, mark validation as `BLOCKED` and rerun once dependencies are installed.
@@ -49,6 +52,8 @@ If a command is blocked by environment or dependency issues, mark validation as 
 ## CI intent
 - Install from lockfile
 - Run lint/typecheck/tests/build/content validation
+- Install Playwright Chromium for browser smoke tests
+- Run Playwright smoke tests against the built app
 - Fail fast on any check failure
 
 ## Vercel Preview validation
@@ -68,7 +73,10 @@ Before accepting a Vercel Preview deployment:
 ## Current status
 - Runtime now uses project-local toolchain via `.mise.toml` (`node=22`, `pnpm=10.33.4`).
 - Validation and checks should be run with the project-local toolchain (`mise exec -- pnpm ...`).
-- Add/validate command sequence once dependencies are available:
+- Playwright browser smoke tests are available through `mise exec -- pnpm test:browser`.
+- CI is configured to install dependencies from the lockfile, install Chromium, and run `pnpm check:all`.
+- Current validation command sequence:
   - `mise exec -- pnpm check:live`
   - `mise exec -- pnpm check:final`
   - `mise exec -- pnpm check:all`
+  - `PLAYWRIGHT_BASE_URL=https://juliovela-com.vercel.app mise exec -- pnpm test:browser`

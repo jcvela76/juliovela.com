@@ -10,16 +10,19 @@
   },
   "scripts": {
     "dev": "next dev",
-    "dev:local": "next dev -p 19100",
+    "dev:local": "next dev -H 127.0.0.1 -p 19100",
     "build": "next build",
     "start": "next start",
+    "start:local": "next start -H 127.0.0.1 -p 19100",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:browser": "playwright test",
+    "check:browser": "pnpm build && pnpm test:browser",
     "content:validate": "node scripts/content-validate.mjs",
     "check:live": "pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate",
     "check:final": "pnpm lint && pnpm typecheck && pnpm test && pnpm content:validate && pnpm build",
-    "check:all": "pnpm check:final"
+    "check:all": "pnpm check:final && pnpm test:browser"
   },
   "dependencies": {
     "next": "^14.2.0",
@@ -30,6 +33,7 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.0",
+    "@playwright/test": "^1.54.0",
     "@types/node": "^20.14.11",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.2",
