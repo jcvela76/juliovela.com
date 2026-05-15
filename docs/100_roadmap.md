@@ -27,6 +27,7 @@
 - Vercel Preview setup slice: document dashboard setup, build settings, Node `22.x`, preview validation, and launch guardrails before any real DNS or production changes.
 - Vercel environment strategy: use PR Preview deployments as staging/review for now; keep `main` as production and defer a dedicated `stg` branch/domain until needed.
 - Browser smoke testing slice: add Playwright smoke tests for `/`, `/blog`, `/robots.txt`, and `/sitemap.xml`, and run them in CI through `pnpm check:all`.
+- First article publish-readiness slice: audit `choosing-the-right-ai-tool` for editorial, SEO, legal/disclosure, sitemap, and production visibility readiness before any status change to `published`.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

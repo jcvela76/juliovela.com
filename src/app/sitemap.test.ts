@@ -18,9 +18,9 @@ describe("sitemap metadata route", () => {
     expect(urls).not.toContain(`${siteMetadata.baseUrl}/drafts-preview`);
   });
 
-  it("excludes approved preview-only articles from production sitemap", () => {
+  it("includes published articles in the production sitemap", () => {
     const urls = sitemap().map((entry) => entry.url);
 
-    expect(urls).not.toContain(`${siteMetadata.baseUrl}/blog/choosing-the-right-ai-tool`);
+    expect(urls).toContain(`${siteMetadata.baseUrl}/blog/choosing-the-right-ai-tool`);
   });
 });
