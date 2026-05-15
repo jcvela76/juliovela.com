@@ -66,6 +66,15 @@ Before accepting a Vercel Preview deployment:
 - Confirm no secrets, `.env.local`, or `.vercel/` files are committed.
 - Confirm no DNS or production domain changes were made.
 
+## Publication preview validation
+Before any article is changed from `approved` to `published`:
+- Review the rendered Vercel Preview article page, not only the MDX file.
+- Review the article entry on `/blog`.
+- Review the default or article-specific OG/cover image.
+- Review mobile and desktop presentation.
+- Review metadata and sitemap expectations.
+- Record approval using `docs/110_publication_review_checklist.md`.
+
 ## Governance
 - Every implementation task must include validation.
 - Track known gaps until implementation catches up.

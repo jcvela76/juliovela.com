@@ -122,9 +122,13 @@ First approved preview rule:
 
 Publish readiness rule:
 - Before changing any article from `approved` to `published`, create a publish-readiness audit.
-- Confirm editorial fit, SEO metadata, legal/disclosure needs, canonical URL behavior, and production visibility expectations.
+- Confirm editorial fit, SEO metadata, legal/disclosure needs, canonical URL behavior, visual/OG image readiness, and production visibility expectations.
+- Do not publish from Markdown/frontmatter review alone.
+- Julio must review the rendered Vercel Preview article page and `/blog` listing before publication.
+- Julio must approve the visual/OG image plan, even if the default brand OG image is used temporarily.
 - The publish PR must run full validation and be reviewed in Vercel Preview before merge.
 - Production smoke checks must run after merge.
+- Use `docs/110_publication_review_checklist.md` for the required review checklist.
 
 Validation rules:
 - Public blog slugs must be unique within `content/approved/blog/`.
