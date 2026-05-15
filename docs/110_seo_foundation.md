@@ -111,12 +111,18 @@ Do not include draft URLs in the sitemap.
 Do not include `approved` preview-only URLs in the production sitemap.
 
 ## Structured data plan
-Consider after the first public article route and metadata rules are stable:
-- `Article`
-- `Person`
-- `WebSite`
+Article structured data should be added only after public article routes and metadata rules are stable.
 
-Do not add structured data until the public content model is stable enough to validate.
+Implemented baseline:
+- `BlogPosting` JSON-LD on `/blog/[slug]`
+- `Person` author metadata using `Julio Vela`
+- `Organization` publisher metadata using `Julio Vela Tech Solutions`
+- Article URL, title, description, published date, tags, and default OG image
+
+Future optional structured data:
+- `Person` profile page metadata
+- `WebSite` search/discovery metadata
+- Article-specific image metadata when per-article OG images exist
 
 ## SEO and Vercel readiness sequence
 Use small PRs so SEO, hosting, DNS, and production publishing do not get mixed.
@@ -206,6 +212,29 @@ Status:
 - Default OG image size is `1200x630`.
 - Metadata helper wires the image into Open Graph and Twitter metadata.
 - Per-article dynamic OG images remain a later optional slice.
+
+### Slice 3.5: BlogPosting structured data
+Goal:
+- Help search engines understand public article pages as blog posts.
+
+Scope:
+- Add reusable `BlogPosting` JSON-LD helper.
+- Render structured data on `/blog/[slug]`.
+- Reuse approved article metadata from frontmatter.
+- Keep the default brand OG image as the structured data image until article-specific images are approved.
+
+Rules:
+- Do not publish or expose draft content.
+- Do not add CMS, automation, Search Console, or domain changes in this slice.
+- Do not invent author, publisher, or article metadata.
+
+Validation:
+- `mise exec -- pnpm check:live`
+- `mise exec -- pnpm check:all`
+- Inspect rendered article HTML for `application/ld+json`
+
+Status:
+- Implemented as the first follow-up from the SEO audit for `choosing-the-right-ai-tool`.
 
 ### Slice 4: Vercel preview setup
 Goal:

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownBody from "@/components/markdown-body";
 import { findApprovedBlogPost, readApprovedBlogPosts } from "@/lib/content/blog";
-import { createPageMetadata, indexableRobots, noIndexRobots } from "@/lib/seo";
+import { createBlogPostingJsonLd, createPageMetadata, indexableRobots, noIndexRobots, serializeJsonLd } from "@/lib/seo";
 
 type BlogPostPageProps = {
   params: {
@@ -68,8 +68,14 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const blogPostingJsonLd = createBlogPostingJsonLd(post);
+
   return (
     <main className="min-h-screen bg-[color:var(--brand-white)] text-[color:var(--brand-space)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingJsonLd) }}
+      />
       <article className="mx-auto w-full max-w-4xl px-4 py-12 md:px-8 md:py-16">
         <Link
           href="/blog"

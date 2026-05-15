@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { brandIdentity } from "@/lib/brand";
+import type { BlogPost } from "@/lib/content/blog";
 
 export const siteMetadata = {
   baseUrl: "https://juliovela.com",
@@ -77,4 +78,75 @@ export function createPageMetadata({
       description,
     },
   };
+}
+
+type BlogPostingJsonLd = {
+  "@context": "https://schema.org";
+  "@type": "BlogPosting";
+  author: {
+    "@type": "Person";
+    name: string;
+  };
+  dateModified: string;
+  datePublished: string;
+  description: string;
+  headline: string;
+  image: string[];
+  keywords: string[];
+  mainEntityOfPage: {
+    "@id": string;
+    "@type": "WebPage";
+  };
+  publisher: {
+    "@type": "Organization";
+    logo: {
+      "@type": "ImageObject";
+      url: string;
+    };
+    name: string;
+  };
+};
+
+function absoluteSiteUrl(pathOrUrl: string) {
+  if (pathOrUrl.startsWith("http://") || pathOrUrl.startsWith("https://")) {
+    return pathOrUrl;
+  }
+
+  return new URL(pathOrUrl, siteMetadata.baseUrl).toString();
+}
+
+export function createBlogPostingJsonLd(post: BlogPost): BlogPostingJsonLd {
+  const articleUrl = absoluteSiteUrl(post.canonicalUrl || `/blog/${post.slug}`);
+  const imageUrl = absoluteSiteUrl(defaultOgImage.url);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    dateModified: post.date,
+    datePublished: post.date,
+    description: post.description,
+    headline: post.seoTitle || post.title,
+    image: [imageUrl],
+    keywords: post.tags,
+    mainEntityOfPage: {
+      "@id": articleUrl,
+      "@type": "WebPage",
+    },
+    publisher: {
+      "@type": "Organization",
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteSiteUrl("/icon.svg"),
+      },
+      name: siteMetadata.name,
+    },
+  };
+}
+
+export function serializeJsonLd(data: BlogPostingJsonLd) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }

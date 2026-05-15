@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { metadata } from "@/app/layout";
-import { createPageMetadata, defaultOgImage, noIndexRobots, siteMetadata } from "@/lib/seo";
+import {
+  createBlogPostingJsonLd,
+  createPageMetadata,
+  defaultOgImage,
+  noIndexRobots,
+  serializeJsonLd,
+  siteMetadata,
+} from "@/lib/seo";
 
 describe("SEO metadata helpers", () => {
   it("defines the production site base URL", () => {
@@ -62,5 +69,73 @@ describe("SEO metadata helpers", () => {
     expect(metadata.twitter).toMatchObject({
       images: [defaultOgImage.url],
     });
+  });
+
+  it("creates BlogPosting structured data for published articles", () => {
+    const jsonLd = createBlogPostingJsonLd({
+      author: "Julio Vela",
+      body: "# Example",
+      canonicalUrl: "",
+      date: "2026-05-15",
+      description: "A practical article description.",
+      excerpt: "A practical article excerpt.",
+      filePath: "content/approved/blog/example.mdx",
+      ogDescription: "Social description.",
+      ogTitle: "Social title",
+      seoTitle: "Example SEO Title",
+      slug: "example-article",
+      status: "published",
+      tags: ["AI tools", "workflows"],
+      title: "Example Article",
+    });
+
+    expect(jsonLd).toMatchObject({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      author: {
+        "@type": "Person",
+        name: "Julio Vela",
+      },
+      dateModified: "2026-05-15",
+      datePublished: "2026-05-15",
+      description: "A practical article description.",
+      headline: "Example SEO Title",
+      image: [`${siteMetadata.baseUrl}/opengraph-image`],
+      keywords: ["AI tools", "workflows"],
+      mainEntityOfPage: {
+        "@id": `${siteMetadata.baseUrl}/blog/example-article`,
+        "@type": "WebPage",
+      },
+      publisher: {
+        "@type": "Organization",
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteMetadata.baseUrl}/icon.svg`,
+        },
+        name: siteMetadata.name,
+      },
+    });
+  });
+
+  it("serializes structured data safely for inline script rendering", () => {
+    const jsonLd = createBlogPostingJsonLd({
+      author: "Julio Vela",
+      body: "",
+      canonicalUrl: "https://juliovela.com/blog/custom",
+      date: "2026-05-15",
+      description: "Description with <tag> text.",
+      excerpt: "",
+      filePath: "content/approved/blog/custom.mdx",
+      ogDescription: "",
+      ogTitle: "",
+      seoTitle: "",
+      slug: "custom",
+      status: "published",
+      tags: [],
+      title: "Custom Title",
+    });
+
+    expect(serializeJsonLd(jsonLd)).toContain("\\u003ctag>");
+    expect(serializeJsonLd(jsonLd)).not.toContain("<tag>");
   });
 });
