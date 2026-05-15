@@ -120,6 +120,12 @@ First approved preview rule:
 - It must not be treated as production-published content.
 - Promotion from `approved` to `published` requires explicit Julio approval in a later slice.
 
+Publish readiness rule:
+- Before changing any article from `approved` to `published`, create a publish-readiness audit.
+- Confirm editorial fit, SEO metadata, legal/disclosure needs, canonical URL behavior, and production visibility expectations.
+- The publish PR must run full validation and be reviewed in Vercel Preview before merge.
+- Production smoke checks must run after merge.
+
 Validation rules:
 - Public blog slugs must be unique within `content/approved/blog/`.
 - Files in `content/approved/blog/` may use only `approved`, `published`, or `archived`.
