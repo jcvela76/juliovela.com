@@ -30,6 +30,7 @@
 - First article publish-readiness slice: audit `choosing-the-right-ai-tool` for editorial, SEO, legal/disclosure, sitemap, and production visibility readiness before any status change to `published`.
 - Publication review checklist slice: require rendered Vercel Preview review of article page, blog listing, metadata, mobile/desktop layout, and OG/cover image before any future article publish.
 - SEO structured data slice: add `BlogPosting` JSON-LD to article pages using approved frontmatter metadata.
+- Marketing/UX/copy audit slice: document current positioning gaps and plan a focused homepage/blog copy update before broader content expansion.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.
