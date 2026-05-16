@@ -24,9 +24,16 @@ Do not use a production database for content in the first content slice.
 - LinkedIn draft
 - Image prompt / visual plan
 - SEO title/description and excerpt
-4. Draft status becomes `ready_for_review`.
-5. Julio reviews in preview/PR.
-6. On approval, move to approved folders and prepare publish plan.
+4. Professional copy review sharpens the article:
+- Clarifies the audience and practical takeaway
+- Improves the opening hook and closing
+- Removes vague or generic language
+- Preserves Julio Vela's practical, technical, non-hype voice
+5. SEO review confirms metadata, heading structure, slug, canonical plan, tags, and structured-data readiness.
+6. Visual review confirms cover/OG direction and alt text plan.
+7. Draft status becomes `ready_for_review`.
+8. Julio reviews the rendered article and supporting assets in preview/PR.
+9. On approval, move to approved folders and prepare publish plan.
 
 ## Rules
 - All generated items are drafts until approved.
@@ -34,6 +41,8 @@ Do not use a production database for content in the first content slice.
 - n8n or local scripts may create drafts, but they must not publish.
 - Approval happens through Julio review, normally in GitHub PR and Vercel Preview.
 - A merge to `main` may make approved content eligible for production, but production publishing still follows the deployment approval rules.
+- Every article must pass professional copy review before approval or publication.
+- Copy review may improve clarity, rhythm, structure, hook, transitions, and closing, but must not invent claims, metrics, clients, endorsements, or expertise.
 - Content status values:
   - `idea`, `draft`, `ready_for_review`, `approved`, `published`, `archived`
 
@@ -124,6 +133,7 @@ Publish readiness rule:
 - Before changing any article from `approved` to `published`, create a publish-readiness audit.
 - Confirm editorial fit, SEO metadata, legal/disclosure needs, canonical URL behavior, visual/OG image readiness, and production visibility expectations.
 - Do not publish from Markdown/frontmatter review alone.
+- Confirm the article has passed professional copy review.
 - Julio must review the rendered Vercel Preview article page and `/blog` listing before publication.
 - Julio must approve the visual/OG image plan, even if the default brand OG image is used temporarily.
 - The publish PR must run full validation and be reviewed in Vercel Preview before merge.

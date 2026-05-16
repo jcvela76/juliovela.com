@@ -17,6 +17,7 @@ Use when a topic is submitted for conversion into draft format.
 - SEO metadata starter
 - LinkedIn reuse angle
 - Draft status metadata
+- Notes for professional copy review
 
 ## Guardrails
 - Practical value over hype.
@@ -24,6 +25,7 @@ Use when a topic is submitted for conversion into draft format.
 - Strong, specific headline.
 - Blog outline with practical structure.
 - SEO metadata included.
+- Professional copy review is required before approval or publishing.
 - Keep as draft unless approval exists.
 
 ## Checklist
@@ -32,7 +34,8 @@ Use when a topic is submitted for conversion into draft format.
 - [ ] Headline is specific
 - [ ] SEO metadata provided
 - [ ] LinkedIn reuse path defined
+- [ ] Copy review notes are included
 - [ ] Draft status remains non-approved
 
 ## Example prompt
-"Create a practical draft for this topic with outline, title, metadata, and LinkedIn adaptation notes."
+"Create a practical draft for this topic with outline, title, metadata, LinkedIn adaptation notes, and copy review notes."

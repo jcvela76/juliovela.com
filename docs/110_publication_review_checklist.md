@@ -15,6 +15,7 @@ No article should be published from Markdown/frontmatter review alone. Julio mus
 ## Required approvals
 Before merge to `main`, confirm:
 - Content approved
+- Professional copy review approved
 - Rendered article page approved
 - Blog index card/listing approved
 - Visual / OG image approved
@@ -41,6 +42,33 @@ Check the Vercel Preview article page:
 - Mobile spacing is comfortable.
 - Desktop line length is readable.
 - No fake metrics, fake claims, or unapproved endorsements appear.
+
+## Professional copy review
+Every article must pass copy review before approval or publication.
+
+The copy review should confirm:
+- The intended audience is clear.
+- The opening explains why the article matters.
+- The practical takeaway is obvious.
+- Section transitions feel natural.
+- Generic or vague language has been tightened.
+- The closing gives a useful next step or soft CTA.
+- The article still sounds like Julio Vela: practical, technical, clear, modern, and non-hype.
+- No claims, metrics, clients, testimonials, or endorsements were invented.
+
+Copy review may improve:
+- Hook
+- Structure
+- Rhythm
+- Transitions
+- Clarity
+- Closing
+
+Copy review must not:
+- Change the article's approved intent without calling it out.
+- Add unsupported claims.
+- Make the tone clickbait-heavy.
+- Turn practical guidance into generic AI hype.
 
 ## Blog index review
 Check `/blog` in Vercel Preview:

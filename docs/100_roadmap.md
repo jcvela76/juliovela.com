@@ -32,6 +32,7 @@
 - SEO structured data slice: add `BlogPosting` JSON-LD to article pages using approved frontmatter metadata.
 - Marketing/UX/copy audit slice: document current positioning gaps and plan a focused homepage/blog copy update before broader content expansion.
 - Homepage/blog copy slice: sharpen public positioning and remove internal draft-language signals from the public Insights section.
+- Editorial workflow slice: add professional copy review as a required step before article approval or publication.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.
@@ -45,6 +46,7 @@
 ## Phase 3 (Automation)
 - n8n-orchestrated content pipeline after repo-first content workflow is validated
 - Human-in-the-loop approval gates
+- Automation drafts should route through professional copy review before SEO review, visual review, rendered preview, and Julio approval.
 - Local n8n Docker experiments may use reserved port `19110`, but production n8n should run on n8n Cloud or a dedicated host, not Vercel.
 
 ## Phase 4 (Refinement)
