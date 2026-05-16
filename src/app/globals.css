@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
 }
 
 body {
@@ -101,11 +102,16 @@ section[id] {
 
 @media (min-width: 1024px) and (min-height: 760px) {
   html {
+    scroll-padding-top: 0;
     scroll-snap-type: y mandatory;
   }
 
   .scroll-panel {
     scroll-snap-align: start;
+  }
+
+  section[id] {
+    scroll-margin-top: 0;
   }
 }
 

@@ -63,9 +63,9 @@ export default function ContentSection({
   return (
     <section
       id={id}
-      className={`scroll-panel flex min-h-screen items-center ${styles.section}`}
+      className={`scroll-panel flex items-center ${styles.section}`}
     >
-      <div className="mx-auto w-full max-w-6xl px-4 py-16 md:px-8 md:py-24">
+      <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:py-20 md:px-8 md:py-24">
         <div className="flex items-start justify-between gap-4">
           <p className={`text-sm font-semibold uppercase ${styles.eyebrow}`}>{eyebrow}</p>
           {draft && (
@@ -74,10 +74,10 @@ export default function ContentSection({
             </span>
           )}
         </div>
-        <h2 className={`mt-8 max-w-4xl text-5xl font-semibold leading-none md:text-7xl ${styles.title}`}>
+        <h2 className={`mt-8 max-w-4xl text-4xl font-semibold leading-none sm:text-5xl md:text-7xl ${styles.title}`}>
           {title}
         </h2>
-        <p className={`mt-8 max-w-3xl text-xl leading-relaxed md:text-2xl ${styles.summary}`}>
+        <p className={`mt-7 max-w-3xl text-lg leading-relaxed sm:text-xl md:mt-8 md:text-2xl ${styles.summary}`}>
           {summary}
         </p>
         {note ? <p className={`mt-4 text-sm ${styles.note}`}>{note}</p> : null}
@@ -86,7 +86,7 @@ export default function ContentSection({
             {items.map((item) => (
               <li
                 key={item}
-                className={`border-l-2 px-5 py-4 text-base leading-relaxed md:text-lg ${styles.item}`}
+                className={`border-l-2 px-4 py-3 text-base leading-relaxed sm:px-5 sm:py-4 md:text-lg ${styles.item}`}
               >
                 {item}
               </li>

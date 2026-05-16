@@ -28,15 +28,15 @@ export default function HomePage() {
 
         <section
           id="contact"
-          className="scroll-panel min-h-screen bg-[color:var(--brand-white)] text-[color:var(--brand-space)]"
+          className="scroll-panel bg-[color:var(--brand-white)] text-[color:var(--brand-space)]"
         >
-          <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-between px-4 py-10 md:px-8 md:py-12">
-            <div className="flex flex-1 flex-col justify-center py-20 md:py-24">
+          <div className="mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-between px-4 py-10 md:px-8 md:py-12">
+            <div className="flex flex-1 flex-col justify-center py-24 md:py-24">
               <p className="text-sm font-semibold uppercase text-[color:var(--brand-red)]">05 / Contact</p>
-              <h2 className="mt-8 max-w-4xl text-5xl font-semibold leading-none text-[color:var(--brand-space)] md:text-7xl">
+              <h2 className="mt-8 max-w-4xl text-4xl font-semibold leading-none text-[color:var(--brand-space)] sm:text-5xl md:text-7xl">
                 Have a technology decision that needs a sharper point of view?
               </h2>
-              <p className="mt-8 max-w-2xl text-xl leading-relaxed text-[color:var(--brand-graphite)] md:text-2xl">
+              <p className="mt-7 max-w-2xl text-lg leading-relaxed text-[color:var(--brand-graphite)] sm:text-xl md:mt-8 md:text-2xl">
                 For project questions, workflow reviews, or practical software direction, start with a direct note.
               </p>
               <a
