@@ -16,11 +16,12 @@ export default function BrandMark({ tone = "default", variant = "header" }: Bran
   return (
     <a
       href="#top"
-      className={`brand-lockup inline-flex ${isHero ? "items-center justify-center" : "items-start"}`}
+      className={`brand-lockup inline-flex ${isHero ? "items-center justify-center" : "items-center"}`}
       aria-label="Julio Vela home"
     >
       <BrandLogoSvg
-        className={isHero ? "h-auto w-[min(78vw,48rem)]" : "h-auto w-44 sm:w-52"}
+        className={isHero ? "block h-auto w-[min(78vw,48rem)]" : "block h-auto w-44 translate-y-[3px] sm:w-52"}
+        lockup={isHero ? "full" : "compact"}
         title={`${brandIdentity.wordmark} ${brandIdentity.subtitle}`}
         tone={tone}
       />

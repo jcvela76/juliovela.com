@@ -12,11 +12,11 @@ export type SiteSection = {
 export const about: SiteSection = {
   id: "about",
   eyebrow: "01 / About",
-  title: "About",
-  summary: "Clear technology guidance for people building, choosing, and improving digital systems.",
+  title: "Practical guidance for better technology decisions.",
+  summary: "I help builders and teams make sense of AI, automation, software, and web tools before they commit time, budget, or trust.",
   items: [
-    "I help translate AI, automation, software, and web technology into practical decisions: what to use, what to avoid, and how to make tools fit real workflows.",
-    "The focus is simple: useful technology choices, cleaner workflows, and systems that are easier to understand and maintain.",
+    "The work is not about chasing every new tool. It is about understanding what belongs in the workflow, what adds risk, and what creates real leverage.",
+    "The focus stays practical: clearer systems, cleaner processes, and technology choices that are easier to explain, maintain, and improve.",
   ],
   theme: "white",
 };
@@ -24,13 +24,13 @@ export const about: SiteSection = {
 export const expertise: SiteSection = {
   id: "expertise",
   eyebrow: "02 / Expertise",
-  title: "Expertise",
-  summary: "Focused guidance for the decisions that usually create the most friction.",
+  title: "Where strategy meets implementation.",
+  summary: "Focused thinking across the technology decisions that usually create the most noise, friction, or second-guessing.",
   items: [
-    "AI tools that fit real workflows",
-    "Automation that actually saves time",
-    "Software strategy before implementation",
-    "Web solutions with practical scope",
+    "AI tools evaluated by workflow fit",
+    "Automation designed around real bottlenecks",
+    "Software strategy before build decisions",
+    "Web solutions with practical scope and maintainability",
     "Technology recommendations with clear tradeoffs",
   ],
   theme: "dark",
@@ -39,12 +39,12 @@ export const expertise: SiteSection = {
 export const services: SiteSection = {
   id: "services",
   eyebrow: "03 / Work With Me",
-  title: "Services / Work With Me",
-  summary: "Focused support for turning technology questions into clear next steps.",
+  title: "Useful direction before the build gets expensive.",
+  summary: "Support for early decisions, messy tool choices, workflow planning, and software direction when the next move needs to be clearer.",
   items: [
-    "Technology decision reviews",
-    "AI and automation workflow planning",
-    "Web and software solution direction",
+    "Technology decision reviews for tools, platforms, and workflows",
+    "AI and automation planning before implementation",
+    "Web and software direction for lean, maintainable solutions",
   ],
   theme: "soft",
 };
@@ -52,14 +52,14 @@ export const services: SiteSection = {
 export const insights: SiteSection = {
   id: "insights",
   eyebrow: "04 / Insights",
-  title: "Insights Preview",
-  summary: "Upcoming guides and practical notes on the technology decisions I am exploring next.",
+  title: "Field notes for practical technology work.",
+  summary: "Short, useful guides on choosing tools, improving workflows, and making better software decisions without getting pulled into hype.",
   items: [
-    "Choosing the right AI tool",
-    "When automation actually saves time",
-    "How to evaluate your tech stack",
+    "How to choose AI tools by workflow impact",
+    "When automation saves time and when it adds overhead",
+    "How to evaluate a tech stack before replacing it",
   ],
-  note: "Coming next",
+  note: "Published and upcoming guides",
   theme: "graphite",
 };
 

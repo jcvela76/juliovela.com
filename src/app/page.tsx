@@ -9,9 +9,9 @@ import Link from "next/link";
 const contactEmail = "mailto:me@juliovela.com";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Julio Vela Tech Solutions | Practical Technology Guidance",
+  title: "Julio Vela Tech Solutions | Practical AI, Automation, and Software Guidance",
   description:
-    "Julio Vela shares clear, practical insights on AI, automation, software strategy, web solutions, and digital tools.",
+    "Practical technology guidance for AI tools, automation, software strategy, web solutions, and smarter digital decisions.",
   path: "/",
 });
 
@@ -34,10 +34,10 @@ export default function HomePage() {
             <div className="flex flex-1 flex-col justify-center py-20 md:py-24">
               <p className="text-sm font-semibold uppercase text-[color:var(--brand-red)]">05 / Contact</p>
               <h2 className="mt-8 max-w-4xl text-5xl font-semibold leading-none text-[color:var(--brand-space)] md:text-7xl">
-                Let&apos;s make the next technology decision clearer.
+                Have a technology decision that needs a sharper point of view?
               </h2>
               <p className="mt-8 max-w-2xl text-xl leading-relaxed text-[color:var(--brand-graphite)] md:text-2xl">
-                For collaboration, project questions, or practical technology guidance, start with a direct note.
+                For project questions, workflow reviews, or practical software direction, start with a direct note.
               </p>
               <a
                 href={contactEmail}

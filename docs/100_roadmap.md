@@ -40,6 +40,8 @@
 - Vercel Web Analytics slice: add the official analytics component for public page analytics only; no GA4, pixels, retargeting, or custom events.
 - Production launch readiness slice: production smoke checks pass on the Vercel domain, `juliovela.com` is the planned canonical domain, and `www.juliovela.com` should redirect to the apex domain after explicit DNS approval.
 - Domain setup slice: add `juliovela.com` in Vercel, configure `www` redirect, wait for DNS propagation, then rerun smoke checks against the canonical domain.
+- Post-domain next steps plan: while DNS propagates, proceed with homepage copy final pass; after DNS stabilizes, run canonical-domain smoke tests, Search Console readiness, and post-launch QA.
+- Homepage copy final pass slice: refine positioning around practical technology decision clarity and correct header logo vertical alignment.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

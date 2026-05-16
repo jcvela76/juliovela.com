@@ -6,6 +6,7 @@ import { brandLogoViewBox } from "@/lib/brand-logo";
 type BrandLogoSvgProps = {
   className?: string;
   height?: number | string;
+  lockup?: "full" | "compact";
   title?: string;
   tone?: "default" | "inverted";
   width?: number | string;
@@ -14,12 +15,14 @@ type BrandLogoSvgProps = {
 export default function BrandLogoSvg({
   className,
   height,
+  lockup = "full",
   title = "Julio Vela Tech Solutions",
   tone = "default",
   width,
 }: BrandLogoSvgProps) {
   const wordmarkColor = tone === "inverted" ? brandPalette.white : brandPalette.spaceGray;
   const subtitleColor = tone === "inverted" ? brandPalette.softWhite : brandPalette.interfaceGray;
+  const viewBoxHeight = lockup === "compact" ? 105 : brandLogoViewBox.height;
 
   return (
     <svg
@@ -27,12 +30,12 @@ export default function BrandLogoSvg({
       className={className}
       height={height}
       role="img"
-      viewBox={`0 0 ${brandLogoViewBox.width} ${brandLogoViewBox.height}`}
+      viewBox={`0 0 ${brandLogoViewBox.width} ${viewBoxHeight}`}
       width={width}
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>{title}</title>
-      <rect fill="none" height={brandLogoViewBox.height} width={brandLogoViewBox.width} />
+      <rect fill="none" height={viewBoxHeight} width={brandLogoViewBox.width} />
       <g fill={brandPalette.red}>
         <circle cx="51" cy="35" r="6" />
         <circle cx="51" cy="67" r="6" />
@@ -50,17 +53,19 @@ export default function BrandLogoSvg({
       >
         JULIO VELA
       </text>
-      <text
-        fill={subtitleColor}
-        fontFamily="Arial, Helvetica, sans-serif"
-        fontSize="31"
-        fontWeight="300"
-        letterSpacing="9"
-        x="193"
-        y="138"
-      >
-        TECH SOLUTIONS
-      </text>
+      {lockup === "full" ? (
+        <text
+          fill={subtitleColor}
+          fontFamily="Arial, Helvetica, sans-serif"
+          fontSize="31"
+          fontWeight="300"
+          letterSpacing="9"
+          x="193"
+          y="138"
+        >
+          TECH SOLUTIONS
+        </text>
+      ) : null}
     </svg>
   );
 }
