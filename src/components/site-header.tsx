@@ -1,17 +1,20 @@
 "use client";
 
 import BrandMark from "@/components/brand-mark";
+import MobileSectionDots from "@/components/mobile-section-dots";
 import { navItems } from "@/lib/site";
 import SectionNav from "@/components/section-nav";
 import { useEffect, useRef, useState } from "react";
 
 const darkHeaderHrefs = new Set(["#expertise", "#insights"]);
+const mobileNavItems = [{ label: "Intro", href: "#top" }, ...navItems];
 
 export default function SiteHeader() {
   const headerRef = useRef<HTMLElement | null>(null);
   const [showHeaderLogo, setShowHeaderLogo] = useState(false);
   const [activeHref, setActiveHref] = useState<string | undefined>(undefined);
   const isDarkHeader = showHeaderLogo && activeHref ? darkHeaderHrefs.has(activeHref) : false;
+  const mobileActiveHref = activeHref ?? "#top";
 
   useEffect(() => {
     const syncFromHash = () => {
@@ -91,32 +94,40 @@ export default function SiteHeader() {
   }, []);
 
   return (
-    <header
-      ref={headerRef}
-      className={`fixed left-0 top-0 z-20 w-full border-b backdrop-blur transition-colors duration-300 ${
-        showHeaderLogo
-          ? isDarkHeader
-            ? "border-white/15 bg-[color:var(--brand-space)]"
-            : "border-[color:var(--brand-graphite)]/10 bg-[color:var(--brand-soft)]"
-          : "border-transparent bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 md:px-8">
-        <div
-          className={`transition-opacity duration-300 ${
-            showHeaderLogo ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
-          aria-hidden={!showHeaderLogo}
-        >
-          <BrandMark tone={isDarkHeader ? "inverted" : "default"} variant="header" />
+    <>
+      <header
+        ref={headerRef}
+        className={`fixed left-0 top-0 z-20 w-full border-b backdrop-blur transition-colors duration-300 ${
+          showHeaderLogo
+            ? isDarkHeader
+              ? "border-white/15 bg-[color:var(--brand-space)]"
+              : "border-[color:var(--brand-graphite)]/10 bg-[color:var(--brand-soft)]"
+            : "border-transparent bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 md:px-8">
+          <div
+            className={`transition-opacity duration-300 ${
+              showHeaderLogo ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+            aria-hidden={!showHeaderLogo}
+          >
+            <BrandMark tone={isDarkHeader ? "inverted" : "default"} variant="header" />
+          </div>
+          <SectionNav
+            items={navItems}
+            activeHref={activeHref}
+            inverted={isDarkHeader}
+            className="hidden justify-end gap-1.5 text-[0.66rem] md:flex md:gap-2 md:text-xs"
+          />
         </div>
-        <SectionNav
-          items={navItems}
-          activeHref={activeHref}
-          inverted={isDarkHeader}
-          className="hidden justify-end gap-1.5 text-[0.66rem] md:flex md:gap-2 md:text-xs"
-        />
-      </div>
-    </header>
+      </header>
+      <MobileSectionDots
+        items={mobileNavItems}
+        activeHref={mobileActiveHref}
+        inverted={isDarkHeader}
+        hidden={!showHeaderLogo}
+      />
+    </>
   );
 }
