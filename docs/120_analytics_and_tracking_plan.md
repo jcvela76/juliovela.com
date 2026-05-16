@@ -7,8 +7,8 @@ The goal is to understand basic site performance and content interest without ad
 
 ## Current status
 - Analytics is not implemented yet.
-- The public privacy page currently states that the site does not use analytics.
-- Do not enable analytics until the privacy page is updated and Julio approves the tracking approach.
+- The public privacy page is now prepared for Vercel Web Analytics as the intended lightweight analytics tool.
+- Do not enable analytics until Julio approves the implementation slice.
 - Do not add Google Analytics, advertising pixels, retargeting scripts, or third-party marketing tags in the first tracking slice.
 
 ## Recommended phase 1 tool
@@ -93,6 +93,8 @@ Deliverables:
 - No runtime analytics code yet.
 
 ### Slice 2: Privacy copy update
+Status: current slice.
+
 Deliverables:
 - Update `/privacy` to disclose the selected analytics tool.
 - Keep copy plain-language and minimal.
@@ -125,3 +127,13 @@ Deliverables:
 - No secrets are committed.
 - Vercel Preview validates correctly.
 - Production smoke tests pass after deployment.
+
+## Official references checked
+- Vercel Web Analytics documentation: `https://vercel.com/docs/analytics/`
+- Vercel Web Analytics privacy and compliance documentation: `https://vercel.com/docs/analytics/privacy-policy`
+- Vercel Web Analytics quickstart: `https://vercel.com/docs/analytics/quickstart`
+
+Notes from official docs reviewed on 2026-05-16:
+- Vercel describes Web Analytics as storing anonymized data and not using cookies.
+- Vercel describes visitor identification as using a generated hash rather than third-party cookies.
+- The privacy page should still disclose analytics usage before implementation.

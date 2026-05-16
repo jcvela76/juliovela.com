@@ -14,7 +14,8 @@
 ## Public transparency pages
 - `/privacy` exists as a minimal pre-launch privacy page.
 - `/disclosures` exists as a minimal pre-launch disclosure page.
-- Current public copy states that the site does not use accounts, contact forms, newsletter signup, analytics, advertising pixels, or payment flows.
+- Current public copy states that the site does not use accounts, contact forms, newsletter signup, advertising pixels, payment flows, Google Analytics, retargeting scripts, or behavioral advertising tools.
+- Current public copy is prepared for Vercel Web Analytics as the intended lightweight analytics tool.
 - Update `/privacy` before adding analytics, cookies, forms, newsletters, accounts, payments, or other data collection.
 - Update `/disclosures` before publishing affiliate links, sponsorships, paid recommendations, or other material relationships.
 
