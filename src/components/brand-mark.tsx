@@ -6,10 +6,11 @@ import { brandIdentity } from "@/lib/brand";
 type BrandMarkVariant = "header" | "hero";
 
 type BrandMarkProps = {
+  tone?: "default" | "inverted";
   variant?: BrandMarkVariant;
 };
 
-export default function BrandMark({ variant = "header" }: BrandMarkProps) {
+export default function BrandMark({ tone = "default", variant = "header" }: BrandMarkProps) {
   const isHero = variant === "hero";
 
   return (
@@ -21,6 +22,7 @@ export default function BrandMark({ variant = "header" }: BrandMarkProps) {
       <BrandLogoSvg
         className={isHero ? "h-auto w-[min(78vw,48rem)]" : "h-auto w-44 sm:w-52"}
         title={`${brandIdentity.wordmark} ${brandIdentity.subtitle}`}
+        tone={tone}
       />
     </a>
   );

@@ -7,6 +7,7 @@ type BrandLogoSvgProps = {
   className?: string;
   height?: number | string;
   title?: string;
+  tone?: "default" | "inverted";
   width?: number | string;
 };
 
@@ -14,8 +15,12 @@ export default function BrandLogoSvg({
   className,
   height,
   title = "Julio Vela Tech Solutions",
+  tone = "default",
   width,
 }: BrandLogoSvgProps) {
+  const wordmarkColor = tone === "inverted" ? brandPalette.white : brandPalette.spaceGray;
+  const subtitleColor = tone === "inverted" ? brandPalette.softWhite : brandPalette.interfaceGray;
+
   return (
     <svg
       aria-label={title}
@@ -35,7 +40,7 @@ export default function BrandLogoSvg({
         <path d="M100 20H110L96 85H86Z" />
       </g>
       <text
-        fill={brandPalette.spaceGray}
+        fill={wordmarkColor}
         fontFamily="Arial, Helvetica, sans-serif"
         fontSize="74"
         fontWeight="800"
@@ -46,7 +51,7 @@ export default function BrandLogoSvg({
         JULIO VELA
       </text>
       <text
-        fill={brandPalette.interfaceGray}
+        fill={subtitleColor}
         fontFamily="Arial, Helvetica, sans-serif"
         fontSize="31"
         fontWeight="300"

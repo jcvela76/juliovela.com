@@ -5,10 +5,32 @@ import { navItems } from "@/lib/site";
 import SectionNav from "@/components/section-nav";
 import { useEffect, useRef, useState } from "react";
 
+const darkHeaderHrefs = new Set(["#expertise", "#insights"]);
+
 export default function SiteHeader() {
   const headerRef = useRef<HTMLElement | null>(null);
   const [showHeaderLogo, setShowHeaderLogo] = useState(false);
   const [activeHref, setActiveHref] = useState<string | undefined>(undefined);
+  const isDarkHeader = showHeaderLogo && activeHref ? darkHeaderHrefs.has(activeHref) : false;
+
+  useEffect(() => {
+    const syncFromHash = () => {
+      const hash = window.location.hash;
+      const matchingItem = navItems.find((item) => item.href === hash);
+
+      if (matchingItem) {
+        setActiveHref(matchingItem.href);
+        setShowHeaderLogo(true);
+      } else if (!hash || hash === "#top") {
+        setActiveHref(undefined);
+      }
+    };
+
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
 
   useEffect(() => {
     const intro = document.getElementById("intro");
@@ -73,7 +95,9 @@ export default function SiteHeader() {
       ref={headerRef}
       className={`fixed left-0 top-0 z-20 w-full border-b backdrop-blur transition-colors duration-300 ${
         showHeaderLogo
-          ? "border-[color:var(--brand-graphite)]/10 bg-[color:var(--brand-soft)]/92"
+          ? isDarkHeader
+            ? "border-white/15 bg-[color:var(--brand-space)]"
+            : "border-[color:var(--brand-graphite)]/10 bg-[color:var(--brand-soft)]"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -84,11 +108,12 @@ export default function SiteHeader() {
           }`}
           aria-hidden={!showHeaderLogo}
         >
-          <BrandMark variant="header" />
+          <BrandMark tone={isDarkHeader ? "inverted" : "default"} variant="header" />
         </div>
         <SectionNav
           items={navItems}
           activeHref={activeHref}
+          inverted={isDarkHeader}
           className="hidden justify-end gap-1.5 text-[0.66rem] md:flex md:gap-2 md:text-xs"
         />
       </div>
