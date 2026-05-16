@@ -3,7 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownBody from "@/components/markdown-body";
 import { findApprovedBlogPost, readApprovedBlogPosts } from "@/lib/content/blog";
-import { createBlogPostingJsonLd, createPageMetadata, indexableRobots, noIndexRobots, serializeJsonLd } from "@/lib/seo";
+import {
+  createArticleOgImage,
+  createBlogPostingJsonLd,
+  createPageMetadata,
+  indexableRobots,
+  noIndexRobots,
+  serializeJsonLd,
+} from "@/lib/seo";
 
 type BlogPostPageProps = {
   params: {
@@ -33,11 +40,13 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
     robots: isPublished ? indexableRobots : noIndexRobots,
     type: "article",
   });
+  const articleOgImage = createArticleOgImage(post.slug, post.title);
 
   metadata.openGraph = {
     ...metadata.openGraph,
     title: post.ogTitle || post.seoTitle || post.title,
     description: post.ogDescription || post.description,
+    images: [articleOgImage],
     type: "article",
     publishedTime: isPublished ? post.date : undefined,
     authors: [post.author],
@@ -48,6 +57,7 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
     ...metadata.twitter,
     title: post.ogTitle || post.seoTitle || post.title,
     description: post.ogDescription || post.description,
+    images: [articleOgImage.url],
   };
 
   if (isPublished) {

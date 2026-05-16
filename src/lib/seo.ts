@@ -19,6 +19,15 @@ export const defaultOgImage = {
   alt: "Julio Vela Tech Solutions brand preview image",
 };
 
+export function createArticleOgImage(slug: string, title: string) {
+  return {
+    url: `/blog/${slug}/opengraph-image`,
+    width: 1200,
+    height: 630,
+    alt: `${title} | Julio Vela Tech Solutions article preview image`,
+  };
+}
+
 export const indexableRobots: Metadata["robots"] = {
   index: true,
   follow: true,
@@ -117,7 +126,7 @@ function absoluteSiteUrl(pathOrUrl: string) {
 
 export function createBlogPostingJsonLd(post: BlogPost): BlogPostingJsonLd {
   const articleUrl = absoluteSiteUrl(post.canonicalUrl || `/blog/${post.slug}`);
-  const imageUrl = absoluteSiteUrl(defaultOgImage.url);
+  const imageUrl = absoluteSiteUrl(createArticleOgImage(post.slug, post.title).url);
 
   return {
     "@context": "https://schema.org",

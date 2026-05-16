@@ -7,7 +7,8 @@ No article should be published from Markdown/frontmatter review alone. Julio mus
 ## Required preview surfaces
 - Vercel Preview article page: `/blog/[slug]`
 - Vercel Preview blog index: `/blog`
-- Open Graph / cover image preview: `/opengraph-image` or the article-specific image route when available
+- Open Graph / cover image preview: `/blog/[slug]/opengraph-image`
+- Site-wide fallback image preview: `/opengraph-image`
 - Metadata output in rendered HTML
 - Mobile viewport review
 - Desktop viewport review
@@ -132,11 +133,10 @@ Then manually confirm:
 - `/robots.txt`
 
 ## Current limitation
-The project currently has a default brand OG image but not yet article-specific OG image generation.
+The project currently supports article-specific OG image generation and keeps the default brand OG image as a fallback.
 
-Until article-specific OG images exist, every publish-readiness audit must explicitly confirm whether the default brand OG image is acceptable for that article.
+Every publish-readiness audit must explicitly confirm whether the article-specific OG image is approved.
 
 Follow-up:
-- Add article-specific OG images in a dedicated slice.
 - Keep `/opengraph-image` as the site-wide fallback.
 - Do not block focused copy edits on OG implementation if fallback use is explicitly accepted as temporary.

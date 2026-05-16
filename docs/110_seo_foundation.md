@@ -117,12 +117,11 @@ Implemented baseline:
 - `BlogPosting` JSON-LD on `/blog/[slug]`
 - `Person` author metadata using `Julio Vela`
 - `Organization` publisher metadata using `Julio Vela Tech Solutions`
-- Article URL, title, description, published date, tags, and default OG image
+- Article URL, title, description, published date, tags, and article-specific OG image
 
 Future optional structured data:
 - `Person` profile page metadata
 - `WebSite` search/discovery metadata
-- Article-specific image metadata when per-article OG images exist
 
 ## SEO and Vercel readiness sequence
 Use small PRs so SEO, hosting, DNS, and production publishing do not get mixed.
@@ -235,6 +234,31 @@ Validation:
 
 Status:
 - Implemented as the first follow-up from the SEO audit for `choosing-the-right-ai-tool`.
+
+### Slice 3.6: Article-specific OG images
+Goal:
+- Give each blog post a social image that reflects the article, not only the site brand.
+
+Scope:
+- Add `/blog/[slug]/opengraph-image`.
+- Generate article social images from approved article metadata.
+- Keep `/opengraph-image` as the site-wide fallback.
+- Wire article Open Graph, Twitter, and `BlogPosting` JSON-LD image metadata to the article-specific image.
+
+Rules:
+- No generic AI robot visuals.
+- No neon, circuits, fake product screenshots, or clutter.
+- No new image dependencies.
+- No article content changes in this slice.
+
+Validation:
+- `mise exec -- pnpm check:live`
+- `mise exec -- pnpm check:all`
+- Confirm article image route returns `200`, `image/png`, and `1200x630`.
+- Review generated image visually before commit.
+
+Status:
+- Implemented for article routes while preserving the global fallback.
 
 ### Slice 4: Vercel preview setup
 Goal:

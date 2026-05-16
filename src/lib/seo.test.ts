@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { metadata } from "@/app/layout";
 import {
+  createArticleOgImage,
   createBlogPostingJsonLd,
   createPageMetadata,
   defaultOgImage,
@@ -71,6 +72,15 @@ describe("SEO metadata helpers", () => {
     });
   });
 
+  it("creates article-specific Open Graph image metadata", () => {
+    expect(createArticleOgImage("example-article", "Example Article")).toEqual({
+      url: "/blog/example-article/opengraph-image",
+      width: 1200,
+      height: 630,
+      alt: "Example Article | Julio Vela Tech Solutions article preview image",
+    });
+  });
+
   it("creates BlogPosting structured data for published articles", () => {
     const jsonLd = createBlogPostingJsonLd({
       author: "Julio Vela",
@@ -100,7 +110,7 @@ describe("SEO metadata helpers", () => {
       datePublished: "2026-05-15",
       description: "A practical article description.",
       headline: "Example SEO Title",
-      image: [`${siteMetadata.baseUrl}/opengraph-image`],
+      image: [`${siteMetadata.baseUrl}/blog/example-article/opengraph-image`],
       keywords: ["AI tools", "workflows"],
       mainEntityOfPage: {
         "@id": `${siteMetadata.baseUrl}/blog/example-article`,
