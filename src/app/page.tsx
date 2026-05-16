@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/site-header";
 import HeroSection from "@/components/hero-section";
 import ContentSection from "@/components/content-section";
+import MobileScrollSettler from "@/components/mobile-scroll-settler";
 import { about, expertise, insights, services } from "@/lib/site";
 import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export default function HomePage() {
   return (
     <div id="top" className="min-h-screen bg-[color:var(--brand-soft)] text-[color:var(--brand-space)]">
       <SiteHeader />
+      <MobileScrollSettler />
       <main>
         <HeroSection />
         <ContentSection {...about} />

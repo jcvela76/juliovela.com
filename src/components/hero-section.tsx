@@ -9,13 +9,6 @@ export default function HeroSection() {
       <div className="brand-entrance flex w-full max-w-5xl items-center justify-center text-center">
         <BrandMark variant="hero" />
       </div>
-      <a
-        href="#about"
-        className="hero-scroll absolute bottom-8 left-1/2 inline-flex -translate-x-1/2 text-xs font-medium uppercase text-[color:var(--brand-interface)] transition-colors hover:text-[color:var(--brand-red)]"
-        aria-label="Scroll to about"
-      >
-        <span>Scroll</span>
-      </a>
     </section>
   );
 }
