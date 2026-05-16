@@ -38,6 +38,8 @@
 - Analytics strategy slice: document privacy-aware tracking before domain launch; start with Vercel Web Analytics planning, defer GA4, and require privacy copy updates before enabling any analytics.
 - Analytics privacy slice: update `/privacy` copy for planned Vercel Web Analytics without enabling runtime analytics yet.
 - Vercel Web Analytics slice: add the official analytics component for public page analytics only; no GA4, pixels, retargeting, or custom events.
+- Production launch readiness slice: production smoke checks pass on the Vercel domain, `juliovela.com` is the planned canonical domain, and `www.juliovela.com` should redirect to the apex domain after explicit DNS approval.
+- Domain setup slice: add `juliovela.com` in Vercel, configure `www` redirect, wait for DNS propagation, then rerun smoke checks against the canonical domain.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

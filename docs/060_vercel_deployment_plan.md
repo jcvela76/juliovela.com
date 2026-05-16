@@ -10,6 +10,8 @@
 - Preview branch pattern: all feature branches and PRs
 - Vercel project exists.
 - Current Vercel URL: `https://juliovela-com.vercel.app/`
+- Planned primary domain: `https://juliovela.com`
+- Planned `www` behavior: `https://www.juliovela.com` redirects to `https://juliovela.com`
 - `.vercel/` must remain untracked.
 
 ## Environment model
@@ -25,6 +27,22 @@
 - Validate build before deployment.
 - Document env vars in `.env.example` only (no real values).
 - Do not connect `juliovela.com` until production readiness is approved.
+
+## Custom domain strategy
+Decision:
+- Use `juliovela.com` as the primary canonical domain.
+- Use `www.juliovela.com` only as a redirect to `juliovela.com`.
+
+Why:
+- The brand is personal and direct, so the apex domain is cleaner and more memorable.
+- SEO canonicals, sitemap, robots host, and social URLs should resolve to one primary domain.
+- Avoiding both `www` and apex as independently accessible URLs reduces duplicate URL risk.
+
+Guardrails:
+- Do not modify DNS without explicit Julio approval.
+- Do not use CLI commands that require tokens or create `.vercel/` unless explicitly approved.
+- Prefer Vercel dashboard configuration for the first custom domain setup.
+- After DNS propagation, rerun production smoke tests against `https://juliovela.com`.
 
 ## Future config approach
 - Keep deployments preview-first
@@ -175,9 +193,19 @@ Use separate slices so hosting setup does not get mixed with SEO, DNS, or publis
 
 ### 5. Domain and launch
 - Configure `juliovela.com` only after explicit approval.
+- Set `juliovela.com` as the primary domain.
+- Configure `www.juliovela.com` as a redirect to `juliovela.com`.
 - Make DNS changes only after explicit approval.
 - Deploy or promote production only after explicit approval.
 - Run post-launch smoke checks.
+
+### 6. Post-domain verification
+- Verify `/`, `/blog`, one article, `/privacy`, `/disclosures`, `/robots.txt`, `/sitemap.xml`, `/opengraph-image`, and one article OG route.
+- Confirm `robots.txt` points to `https://juliovela.com/sitemap.xml`.
+- Confirm `sitemap.xml` uses `https://juliovela.com` URLs.
+- Confirm `www.juliovela.com` redirects to `https://juliovela.com`.
+- Confirm Vercel Web Analytics receives traffic for the canonical domain.
+- Submit `https://juliovela.com` to Google Search Console after DNS is stable.
 
 ## Local versus Vercel runtime
 - Local development uses exact versions through `.mise.toml`.
