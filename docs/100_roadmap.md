@@ -33,6 +33,7 @@
 - Marketing/UX/copy audit slice: document current positioning gaps and plan a focused homepage/blog copy update before broader content expansion.
 - Homepage/blog copy slice: sharpen public positioning and remove internal draft-language signals from the public Insights section.
 - Editorial workflow slice: add professional copy review as a required step before article approval or publication.
+- Article OG image slice: add article-specific social images for blog posts while keeping the default brand OG image as fallback.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

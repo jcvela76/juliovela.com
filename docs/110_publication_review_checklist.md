@@ -85,6 +85,8 @@ Check the visual plan before publishing:
 - Image does not use generic AI robots, neon cyberpunk, circuits, fake screenshots, or clutter.
 - Image has appropriate alt text or planned alt text.
 - If an article-specific image is not ready, confirm the default brand OG image is acceptable for this publish.
+- If the article is intended for social sharing, prefer an article-specific OG image over the default brand fallback.
+- Record whether the article is using an article-specific OG image or an explicitly approved fallback.
 
 ## SEO metadata review
 Confirm:
@@ -133,3 +135,8 @@ Then manually confirm:
 The project currently has a default brand OG image but not yet article-specific OG image generation.
 
 Until article-specific OG images exist, every publish-readiness audit must explicitly confirm whether the default brand OG image is acceptable for that article.
+
+Follow-up:
+- Add article-specific OG images in a dedicated slice.
+- Keep `/opengraph-image` as the site-wide fallback.
+- Do not block focused copy edits on OG implementation if fallback use is explicitly accepted as temporary.
