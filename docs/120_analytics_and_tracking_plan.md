@@ -101,10 +101,13 @@ Deliverables:
 - Confirm no cookie banner is needed, or document if it is needed.
 
 ### Slice 3: Vercel Web Analytics implementation
+Status: current implementation slice.
+
 Deliverables:
-- Install/use the official Vercel Analytics package if required by current Vercel guidance.
-- Add the analytics component in the appropriate Next.js App Router layout location.
+- Use the official `@vercel/analytics` package.
+- Add the Vercel Analytics component in the Next.js App Router root layout.
 - Keep tracking limited to public page analytics.
+- Do not add custom events in this slice.
 - Validate locally and in Vercel Preview/Production.
 
 ### Slice 4: Search Console setup

@@ -37,6 +37,7 @@
 - Brand asset stabilization slice: reuse the approved SVG logo in UI, use a generated PNG derivative for OG routes because `next/og` does not support SVG text nodes, and update favicon/apple icon to the red `://` mark.
 - Analytics strategy slice: document privacy-aware tracking before domain launch; start with Vercel Web Analytics planning, defer GA4, and require privacy copy updates before enabling any analytics.
 - Analytics privacy slice: update `/privacy` copy for planned Vercel Web Analytics without enabling runtime analytics yet.
+- Vercel Web Analytics slice: add the official analytics component for public page analytics only; no GA4, pixels, retargeting, or custom events.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.
