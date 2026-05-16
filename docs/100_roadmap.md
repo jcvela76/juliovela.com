@@ -43,6 +43,7 @@
 - Post-domain next steps plan: while DNS propagates, proceed with homepage copy final pass; after DNS stabilizes, run canonical-domain smoke tests, Search Console readiness, and post-launch QA.
 - Homepage copy final pass slice: refine positioning around practical technology decision clarity and correct header logo vertical alignment.
 - Homepage copy/mobile audit slice: review deployed homepage copy and mobile rhythm before making additional copy or mobile spacing changes.
+- Mobile navigation UX slice: document and implement mobile scroll rhythm first, then add a minimal left-side dots navigation if mobile review confirms it improves orientation.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.
