@@ -65,7 +65,7 @@ export default function ContentSection({
       id={id}
       className={`scroll-panel flex items-center ${styles.section}`}
     >
-      <div className="mx-auto w-full max-w-6xl px-4 py-24 sm:py-20 md:px-8 md:py-24">
+      <div className="mx-auto w-full max-w-6xl pl-8 pr-4 py-24 sm:px-6 sm:py-20 md:px-8 md:py-24">
         <div className="flex items-start justify-between gap-4">
           <p className={`text-sm font-semibold uppercase ${styles.eyebrow}`}>{eyebrow}</p>
           {draft && (

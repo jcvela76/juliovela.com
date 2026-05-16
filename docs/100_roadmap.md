@@ -46,6 +46,7 @@
 - Mobile navigation UX slice: document and implement mobile scroll rhythm first, then add a minimal left-side dots navigation if mobile review confirms it improves orientation.
 - Mobile scroll rhythm slice: align mobile anchors below the fixed header, reduce small-screen density, and preserve desktop scroll-snap behavior before adding dots navigation.
 - Mobile section dots slice: add a mobile-only left-side anchor rail for section orientation without introducing a hamburger menu.
+- Mobile dots polish slice: tune section-aware dot colors and mobile content inset so the rail stays visible without competing with the narrative content.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

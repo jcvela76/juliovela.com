@@ -17,7 +17,6 @@ export default function MobileSectionDots({
   hidden = false,
 }: MobileSectionDotsProps) {
   const railColor = inverted ? "bg-white/20" : "bg-[color:var(--brand-space)]/15";
-  const dotColor = inverted ? "bg-white/45" : "bg-[color:var(--brand-space)]/35";
   const labelColor = inverted ? "text-[color:var(--brand-soft)]" : "text-[color:var(--brand-space)]";
 
   return (
@@ -46,7 +45,11 @@ export default function MobileSectionDots({
                 <span
                   aria-hidden="true"
                   className={`block rounded-full transition-all duration-200 ${
-                    isActive ? "h-5 w-1 bg-[color:var(--brand-red)]" : `h-1.5 w-1.5 ${dotColor}`
+                    isActive
+                      ? "h-5 w-1 bg-[color:var(--brand-red)]"
+                      : inverted
+                        ? "h-1.5 w-1.5 bg-white/45"
+                        : "h-1.5 w-1.5 bg-[rgba(154,160,166,0.85)]"
                   }`}
                 />
                 <span

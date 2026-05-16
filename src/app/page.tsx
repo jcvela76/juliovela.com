@@ -30,7 +30,7 @@ export default function HomePage() {
           id="contact"
           className="scroll-panel bg-[color:var(--brand-white)] text-[color:var(--brand-space)]"
         >
-          <div className="mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-between px-4 py-10 md:px-8 md:py-12">
+          <div className="mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-between pl-8 pr-4 py-10 sm:px-6 md:px-8 md:py-12">
             <div className="flex flex-1 flex-col justify-center py-24 md:py-24">
               <p className="text-sm font-semibold uppercase text-[color:var(--brand-red)]">05 / Contact</p>
               <h2 className="mt-8 max-w-4xl text-4xl font-semibold leading-none text-[color:var(--brand-space)] sm:text-5xl md:text-7xl">
