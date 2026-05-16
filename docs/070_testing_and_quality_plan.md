@@ -79,6 +79,11 @@ Before any article is changed from `approved` to `published`:
 - Every implementation task must include validation.
 - Track known gaps until implementation catches up.
 
+## Shell path safety
+- Next.js dynamic route folders such as `[slug]` must be quoted in shell commands when using `zsh`.
+- Example: use `git add 'src/app/blog/[slug]/page.tsx'`, not `git add src/app/blog/[slug]/page.tsx`.
+- If an unquoted dynamic route path fails with `zsh: no matches found`, rerun the command with the affected path quoted and document the correction in the task handoff.
+
 ## Current status
 - Runtime now uses project-local toolchain via `.mise.toml` (`node=22`, `pnpm=10.33.4`).
 - Validation and checks should be run with the project-local toolchain (`mise exec -- pnpm ...`).
