@@ -17,3 +17,10 @@
 - Current public copy states that the site does not use accounts, contact forms, newsletter signup, analytics, advertising pixels, or payment flows.
 - Update `/privacy` before adding analytics, cookies, forms, newsletters, accounts, payments, or other data collection.
 - Update `/disclosures` before publishing affiliate links, sponsorships, paid recommendations, or other material relationships.
+
+## Analytics and tracking
+- Analytics is not enabled yet.
+- The recommended first tracking tool is Vercel Web Analytics, documented in `docs/120_analytics_and_tracking_plan.md`.
+- Do not add Google Analytics, advertising pixels, retargeting scripts, or marketing tags without a separate approval slice.
+- Before enabling analytics, update `/privacy` to disclose the tool, what is collected, whether cookies are used, and whether any consent UI is required.
+- Google Search Console may be configured around custom domain launch for SEO monitoring, but domain/DNS work still requires explicit approval.
