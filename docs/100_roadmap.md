@@ -34,6 +34,7 @@
 - Homepage/blog copy slice: sharpen public positioning and remove internal draft-language signals from the public Insights section.
 - Editorial workflow slice: add professional copy review as a required step before article approval or publication.
 - Article OG image slice: add article-specific social images for blog posts while keeping the default brand OG image as fallback.
+- Brand asset stabilization slice: reuse the approved SVG logo in UI, use a generated PNG derivative for OG routes because `next/og` does not support SVG text nodes, and update favicon/apple icon to the red `://` mark.
 
 ## Runtime alignment slice (active)
 - Project-local tooling switched to `mise` with Node 22 LTS and pnpm 10.33.4.

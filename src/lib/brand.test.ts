@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { brandIdentity, brandPalette } from "./brand";
+import { createBrandLogoDataUri, createBrandLogoSvg } from "./brand-logo";
 
 describe("brand data contract", () => {
   it("exposes brand identity", () => {
@@ -19,5 +20,16 @@ describe("brand data contract", () => {
 
   it("has no auto-publish behavior in defaults", () => {
     expect((brandIdentity as Record<string, unknown>).publishAutomatically).toBeUndefined();
+  });
+
+  it("uses an SVG logo source of truth", () => {
+    const svg = createBrandLogoSvg();
+
+    expect(svg).toContain("<circle");
+    expect(svg).toContain("<path");
+    expect(svg).toContain("JULIO VELA");
+    expect(svg).toContain("TECH SOLUTIONS");
+    expect(svg).toContain(brandPalette.red);
+    expect(createBrandLogoDataUri()).toMatch(/^data:image\/svg\+xml/);
   });
 });

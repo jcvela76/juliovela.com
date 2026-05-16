@@ -18,8 +18,7 @@ test.describe("public smoke routes", () => {
     await expectNoConsoleErrors(page, async () => {
       await page.goto("/");
       await expect(page).toHaveTitle(/Julio Vela Tech Solutions/);
-      await expect(page.getByText("JULIO VELA").first()).toBeVisible();
-      await expect(page.getByText("TECH SOLUTIONS").first()).toBeVisible();
+      await expect(page.getByRole("img", { name: /Julio Vela Tech Solutions/i }).first()).toBeVisible();
     });
   });
 

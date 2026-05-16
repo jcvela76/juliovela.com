@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { notFound } from "next/navigation";
+import OgBrandLogo from "@/components/og-brand-logo";
 import { brandIdentity, brandPalette } from "@/lib/brand";
 import { findApprovedBlogPost, readApprovedBlogPosts } from "@/lib/content/blog";
 
@@ -50,28 +51,7 @@ export default function ArticleOpenGraphImage({ params }: ArticleOpenGraphImageP
             gap: 22,
           }}
         >
-          <span
-            style={{
-              color: brandPalette.red,
-              fontSize: 46,
-              fontWeight: 800,
-              letterSpacing: "-0.08em",
-              lineHeight: 1,
-            }}
-          >
-            {brandIdentity.mark}
-          </span>
-          <span
-            style={{
-              color: brandPalette.spaceGray,
-              fontSize: 26,
-              fontWeight: 800,
-              letterSpacing: "0.12em",
-              lineHeight: 1,
-            }}
-          >
-            {brandIdentity.wordmark}
-          </span>
+          <OgBrandLogo />
         </div>
 
         <div

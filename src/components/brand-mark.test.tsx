@@ -7,9 +7,7 @@ describe("brand mark", () => {
   it("renders the symbolic brand mark", () => {
     render(<BrandMark />);
 
-    expect(screen.getByText("://")).toBeInTheDocument();
-    expect(screen.getByText("JULIO VELA")).toBeInTheDocument();
-    expect(screen.getByText("TECH SOLUTIONS")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /julio vela tech solutions/i })).toBeInTheDocument();
   });
 
   it("does not render publishing controls", () => {
