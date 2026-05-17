@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 
 const sectionIds = ["intro", "about", "expertise", "services", "insights", "contact"];
+const swipeThreshold = 44;
+const animationLockMs = 760;
 
 function getHeaderOffset() {
   const header = document.querySelector("header");
@@ -17,6 +19,10 @@ function getTargetTop(section: HTMLElement, headerOffset: number) {
   return Math.max(0, section.offsetTop - headerOffset);
 }
 
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
 export default function MobileScrollSettler() {
   useEffect(() => {
     const mobileQuery = window.matchMedia("(max-width: 1023px)");
@@ -26,9 +32,11 @@ export default function MobileScrollSettler() {
       return;
     }
 
-    let ignoreScrollUntil = 0;
     let touchStartY: number | undefined;
-    let touchStartScrollY: number | undefined;
+    let activeIndex = 0;
+    let gestureLocked = false;
+    let isAnimating = false;
+    let unlockTimer: number | undefined;
 
     const getSections = () =>
       sectionIds
@@ -44,75 +52,117 @@ export default function MobileScrollSettler() {
       }));
     };
 
-    const getCurrentStopIndex = (stops: Array<{ id: string; top: number }>, scrollTop = window.scrollY) => {
-      const viewportPoint = scrollTop + getHeaderOffset() + 8;
-      let currentIndex = 0;
+    const syncActiveIndexFromScroll = () => {
+      if (isAnimating) {
+        return;
+      }
+
+      const headerOffset = getHeaderOffset();
+      const viewportPoint = window.scrollY + headerOffset + 8;
+      const stops = getSectionStops();
 
       stops.forEach((stop, index) => {
         if (stop.top <= viewportPoint) {
-          currentIndex = index;
+          activeIndex = index;
         }
       });
-
-      return currentIndex;
     };
 
-    const scrollToStop = (top: number) => {
-      if (window.performance.now() < ignoreScrollUntil) {
+    const unlockAnimation = () => {
+      isAnimating = false;
+      gestureLocked = false;
+      syncActiveIndexFromScroll();
+    };
+
+    const navigateToIndex = (targetIndex: number) => {
+      const stops = getSectionStops();
+      const target = stops[targetIndex];
+
+      if (!target || targetIndex === activeIndex) {
         return;
       }
 
-      if (Math.abs(window.scrollY - top) < 6) {
-        return;
+      activeIndex = targetIndex;
+      isAnimating = true;
+      gestureLocked = true;
+
+      if (unlockTimer) {
+        window.clearTimeout(unlockTimer);
       }
 
-      ignoreScrollUntil = window.performance.now() + 700;
       window.scrollTo({
-        top,
+        top: target.top,
         behavior: "smooth",
       });
+
+      unlockTimer = window.setTimeout(unlockAnimation, animationLockMs);
     };
 
     const handleTouchStart = (event: TouchEvent) => {
-      touchStartY = event.touches[0]?.clientY;
-      touchStartScrollY = window.scrollY;
-    };
-
-    const handleTouchEnd = (event: TouchEvent) => {
-      const changedTouchY = event.changedTouches[0]?.clientY;
-
-      if (touchStartY === undefined || touchStartScrollY === undefined || changedTouchY === undefined) {
+      if (isAnimating) {
         return;
       }
 
-      const fingerDelta = touchStartY - changedTouchY;
-      const scrollDelta = window.scrollY - touchStartScrollY;
-      const movement = Math.abs(fingerDelta) > Math.abs(scrollDelta) ? fingerDelta : scrollDelta;
+      syncActiveIndexFromScroll();
+      touchStartY = event.touches[0]?.clientY;
+      gestureLocked = false;
+    };
 
-      touchStartY = undefined;
-      touchStartScrollY = undefined;
+    const handleTouchMove = (event: TouchEvent) => {
+      if (touchStartY === undefined || isAnimating) {
+        return;
+      }
 
-      if (Math.abs(movement) < 40) {
+      const currentY = event.touches[0]?.clientY;
+
+      if (currentY === undefined) {
+        return;
+      }
+
+      const delta = touchStartY - currentY;
+
+      if (Math.abs(delta) < swipeThreshold) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (gestureLocked) {
         return;
       }
 
       const stops = getSectionStops();
-      const currentIndex = getCurrentStopIndex(stops, touchStartScrollY);
-      const direction = movement > 0 ? 1 : -1;
-      const targetIndex = Math.min(Math.max(currentIndex + direction, 0), stops.length - 1);
-      const target = stops[targetIndex];
+      const direction = delta > 0 ? 1 : -1;
+      const targetIndex = clamp(activeIndex + direction, 0, stops.length - 1);
 
-      if (target) {
-        scrollToStop(target.top);
-      }
+      gestureLocked = true;
+      navigateToIndex(targetIndex);
     };
 
+    const handleTouchEnd = () => {
+      touchStartY = undefined;
+    };
+
+    const handleScroll = () => {
+      syncActiveIndexFromScroll();
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
     window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchcancel", handleTouchEnd, { passive: true });
 
     return () => {
+      if (unlockTimer) {
+        window.clearTimeout(unlockTimer);
+      }
+
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchcancel", handleTouchEnd);
     };
   }, []);
 

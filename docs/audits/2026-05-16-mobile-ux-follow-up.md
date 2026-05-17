@@ -38,10 +38,11 @@ Final decision:
 
 - Do not use CSS mobile scroll snapping.
 - Keep desktop behavior as `mandatory`.
-- Add a mobile-only scroll settler driven by `touchstart` and `touchend`.
-- On `touchstart`, store both the starting finger position and `touchStartScrollY`.
-- On `touchend`, calculate swipe direction and immediately animate to the next or previous section.
-- Use `touchStartScrollY` to determine the starting section index, not the final scroll position.
+- Add a mobile-only gesture controller driven by `touchstart`, `touchmove`, and `touchend`.
+- Track the active section from scroll position before the gesture begins.
+- When the swipe crosses a small threshold, call `preventDefault()` on `touchmove` and take control of the transition.
+- Animate exactly one section forward or backward per gesture.
+- Lock additional gestures while the smooth animation is running.
 - Use smooth anchor navigation for dots and direct section links.
 - Preserve natural touch scrolling on mobile because even `proximity` snapping can feel abrupt on tall narrative sections.
 
@@ -56,7 +57,7 @@ Root cause:
 - The code then treated that partially moved viewport as the current section and applied another upward move.
 - Example failure mode: starting on `Expertise`, swiping upward could jump past `About` and target `Intro`.
 
-Fix:
+First fix:
 
 - Calculate the current section from `touchStartScrollY`, captured at `touchstart`.
 - This keeps the destination anchored to where the gesture began.
@@ -64,6 +65,20 @@ Fix:
   - From `Expertise`, upward gesture lands on `About`.
   - From `About`, downward gesture lands on `Expertise`.
   - No horizontal overflow.
+
+Follow-up issue:
+
+- Mobile real-device testing still showed occasional upward skips during fast gestures.
+- The likely cause is native momentum continuing to move the document while the JavaScript smooth scroll is also trying to position the viewport.
+- This means the hybrid model still allowed two scroll systems to compete.
+
+Final fix:
+
+- Replace the hybrid settler with a stricter full-page gesture controller.
+- Use `touchmove` with `{ passive: false }` only on mobile so the handler can prevent native scrolling after the gesture crosses the threshold.
+- Navigate a maximum of one section per gesture.
+- Keep an animation lock for the duration of the transition.
+- Re-sync the active section after animation completes.
 
 Reference implementation:
 
