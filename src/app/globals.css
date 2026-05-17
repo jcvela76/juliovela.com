@@ -44,6 +44,10 @@ main {
   min-height: calc(100vh - 4rem);
 }
 
+.home-scroll-container {
+  min-height: 100svh;
+}
+
 .scroll-panel {
   min-height: 100svh;
 }
@@ -98,6 +102,32 @@ main {
 
 section[id] {
   scroll-margin-top: 0;
+}
+
+@media (max-width: 1023px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .home-scroll-container {
+    height: 100svh;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .home-scroll-container .scroll-panel {
+    min-height: 100svh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }
 
 @media (min-width: 1024px) and (min-height: 760px) {

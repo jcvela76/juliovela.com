@@ -21,7 +21,7 @@ export default function HomePage() {
     <div id="top" className="min-h-screen bg-[color:var(--brand-soft)] text-[color:var(--brand-space)]">
       <SiteHeader />
       <MobileScrollSettler />
-      <main>
+      <main className="home-scroll-container">
         <HeroSection />
         <ContentSection {...about} />
         <ContentSection {...expertise} />

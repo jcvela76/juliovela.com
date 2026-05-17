@@ -34,7 +34,7 @@ Initial attempts and issues:
 - That solved the browser snap harshness, but it felt late because the animation started only after the scroll already lost momentum.
 - The desired interaction is gesture-led: when the user releases a meaningful swipe, the page should immediately complete the movement toward the next or previous section.
 
-Final decision:
+Initial decision:
 
 - Do not use CSS mobile scroll snapping.
 - Keep desktop behavior as `mandatory`.
@@ -45,6 +45,15 @@ Final decision:
 - Lock additional gestures while the smooth animation is running.
 - Use smooth anchor navigation for dots and direct section links.
 - Preserve natural touch scrolling on mobile because even `proximity` snapping can feel abrupt on tall narrative sections.
+
+Final mobile decision after real-device testing round 1:
+
+- Remove JavaScript-controlled mobile auto-positioning.
+- Do not intercept `touchmove`.
+- Do not call `preventDefault()` during normal mobile scrolling.
+- Keep mobile scrolling fully native so browser momentum, finger tracking, address-bar behavior, and accessibility remain predictable.
+- Keep mobile dots as intentional manual section shortcuts.
+- Keep desktop scroll snap because mouse/trackpad desktop behavior is stable and expected.
 
 ### Upward navigation bug
 
@@ -72,7 +81,7 @@ Follow-up issue:
 - The likely cause is native momentum continuing to move the document while the JavaScript smooth scroll is also trying to position the viewport.
 - This means the hybrid model still allowed two scroll systems to compete.
 
-Final fix:
+Rejected fix:
 
 - Replace the hybrid settler with a stricter full-page gesture controller.
 - Use `touchmove` with `{ passive: false }` only on mobile so the handler can prevent native scrolling after the gesture crosses the threshold.
@@ -80,9 +89,52 @@ Final fix:
 - Keep an animation lock for the duration of the transition.
 - Re-sync the active section after animation completes.
 
+Real-device result:
+
+- The strict controller reduced some double-jump cases in synthetic browser tests.
+- On real mobile hardware, it still produced too many visible jumps.
+- The interaction felt worse than native scrolling because the page took control away from the user's finger.
+
+Updated implementation:
+
+- `src/components/mobile-scroll-settler.tsx` now renders no behavior.
+- The component remains as an intentional placeholder documenting that mobile auto-settling was tested and disabled.
+- Future mobile scroll experiments should be treated as new slices and must start from native scrolling as the baseline.
+
+Follow-up research:
+
+- The CSS Scroll Snap model is designed to let the browser choose the best final snap position after a native scroll operation instead of using JavaScript to fight touch momentum.
+- Web.dev notes that JavaScript scroll-control solutions do not have the same fidelity as native/composited scrolling.
+- MDN documents `scroll-snap-stop: always`, which prevents a scroll container from passing over a snap point.
+- This points to a better architecture for this homepage: use a dedicated native scroll container for the homepage and let CSS Scroll Snap handle one-panel stops.
+
+Final mobile decision after research:
+
+- Use CSS native scroll snap on the homepage scroll container.
+- Do not intercept touch events.
+- Do not use JavaScript gesture control for normal mobile scrolling.
+- Set each homepage panel to `scroll-snap-stop: always` to reduce fast-swipe section skipping.
+- Keep the dots as manual anchor navigation.
+- Keep this behavior scoped to the homepage only so article and legal pages keep normal document scrolling.
+
+Implementation:
+
+- `src/app/page.tsx` adds `home-scroll-container` to the homepage `<main>`.
+- `src/app/globals.css` scopes mobile scroll snap to `.home-scroll-container`.
+- `src/components/site-header.tsx` points the mobile intro dot to `#intro`, because the scroll container owns the homepage scroll position.
+- `src/components/mobile-section-dots.tsx` handles dot clicks by scrolling `.home-scroll-container` directly instead of relying on document-level anchor scrolling.
+
+References:
+
+- MDN `scroll-snap-stop`: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-stop
+- MDN CSS Scroll Snap concepts: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap/Basic_concepts
+- Web.dev CSS Scroll Snap: https://web.dev/articles/css-scroll-snap
+
 Reference implementation:
 
-- `src/components/mobile-scroll-settler.tsx`
+- `src/app/globals.css`
+- `src/components/mobile-section-dots.tsx`
+- `src/components/mobile-scroll-settler.tsx` remains intentionally inert so future reviews can see that JavaScript gesture control was tested and disabled.
 
 ### Mobile content margin
 
@@ -90,16 +142,17 @@ The previous dots polish increased mobile content inset so the left rail no long
 
 ### Current mobile UX rule
 
-Use three different behaviors intentionally:
+Use two different behaviors intentionally:
 
-- Native touch scrolling remains natural by default.
-- Gesture-led section completion handles meaningful vertical swipes.
+- Native touch scrolling remains the foundation.
+- CSS Scroll Snap handles homepage panel settling.
 - Dots and direct hash links use smooth anchor positioning.
 
 Avoid:
 
-- CSS mobile scroll snap.
+- Document-level CSS mobile scroll snap on `html` or `body`.
 - Delayed debounce-only snapping.
+- JavaScript touch interception for normal scroll gestures.
 - Any visible intro scroll text or vertical scroll marker.
 
 ## Guardrails

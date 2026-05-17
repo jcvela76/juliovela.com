@@ -7,14 +7,14 @@ import SectionNav from "@/components/section-nav";
 import { useEffect, useRef, useState } from "react";
 
 const darkHeaderHrefs = new Set(["#expertise", "#insights"]);
-const mobileNavItems = [{ label: "Intro", href: "#top" }, ...navItems];
+const mobileNavItems = [{ label: "Intro", href: "#intro" }, ...navItems];
 
 export default function SiteHeader() {
   const headerRef = useRef<HTMLElement | null>(null);
   const [showHeaderLogo, setShowHeaderLogo] = useState(false);
   const [activeHref, setActiveHref] = useState<string | undefined>(undefined);
   const isDarkHeader = showHeaderLogo && activeHref ? darkHeaderHrefs.has(activeHref) : false;
-  const mobileActiveHref = activeHref ?? "#top";
+  const mobileActiveHref = activeHref ?? "#intro";
 
   useEffect(() => {
     const syncFromHash = () => {

@@ -1,3 +1,7 @@
+"use client";
+
+import type { MouseEvent } from "react";
+
 type MobileSectionDot = {
   label: string;
   href: string;
@@ -19,6 +23,23 @@ export default function MobileSectionDots({
   const railColor = inverted ? "bg-white/20" : "bg-[color:var(--brand-space)]/15";
   const labelColor = inverted ? "text-[color:var(--brand-soft)]" : "text-[color:var(--brand-space)]";
 
+  const handleDotClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const container = document.querySelector(".home-scroll-container");
+    const target = document.querySelector(href);
+
+    if (!(container instanceof HTMLElement) || !(target instanceof HTMLElement)) {
+      return;
+    }
+
+    event.preventDefault();
+    window.history.pushState(null, "", href);
+    window.dispatchEvent(new Event("hashchange"));
+    container.scrollTo({
+      top: target.offsetTop,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  };
+
   return (
     <nav
       aria-label="Mobile section navigation"
@@ -36,6 +57,7 @@ export default function MobileSectionDots({
                 href={item.href}
                 aria-label={item.label}
                 aria-current={isActive ? "page" : undefined}
+                onClick={(event) => handleDotClick(event, item.href)}
                 className={`group flex h-7 w-6 items-center justify-start rounded-full pl-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand-red)] focus-visible:ring-offset-2 ${
                   inverted
                     ? "focus-visible:ring-offset-[color:var(--brand-space)]"
