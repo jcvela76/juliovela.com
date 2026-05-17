@@ -105,6 +105,10 @@ section[id] {
 }
 
 @media (max-width: 1023px) {
+  :root {
+    --mobile-header-space: 5.5rem;
+  }
+
   html,
   body {
     height: 100%;
@@ -127,6 +131,14 @@ section[id] {
     min-height: 100svh;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+  }
+
+  .home-scroll-container .scroll-panel:not(#intro) {
+    align-items: flex-start;
+  }
+
+  .home-scroll-container .scroll-panel:not(#intro) > div {
+    padding-top: calc(var(--mobile-header-space) + 1.75rem);
   }
 }
 
