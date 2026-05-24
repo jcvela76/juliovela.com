@@ -124,6 +124,18 @@ Implementation:
 - `src/components/site-header.tsx` points the mobile intro dot to `#intro`, because the scroll container owns the homepage scroll position.
 - `src/components/mobile-section-dots.tsx` handles dot clicks by scrolling `.home-scroll-container` directly instead of relying on document-level anchor scrolling.
 
+Regression found after production verification:
+
+- The first mobile container implementation also set `html, body { height: 100%; overflow: hidden; }` inside the mobile media query.
+- That kept the homepage controlled, but it accidentally affected non-home routes such as `/privacy`.
+- Legal/article pages need normal document scrolling and must not inherit homepage scroll containment.
+
+Fix:
+
+- Remove global mobile `overflow: hidden` from `html` and `body`.
+- Keep scroll containment only on `.home-scroll-container`.
+- Verified `/privacy` has normal document scroll while `/` keeps the homepage snap container.
+
 References:
 
 - MDN `scroll-snap-stop`: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-stop
@@ -151,6 +163,7 @@ Use two different behaviors intentionally:
 Avoid:
 
 - Document-level CSS mobile scroll snap on `html` or `body`.
+- Global mobile `overflow: hidden` on `html` or `body`.
 - Delayed debounce-only snapping.
 - JavaScript touch interception for normal scroll gestures.
 - Any visible intro scroll text or vertical scroll marker.
