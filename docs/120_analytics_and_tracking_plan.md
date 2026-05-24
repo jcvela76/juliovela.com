@@ -6,9 +6,10 @@ Define a privacy-aware analytics approach for `juliovela.com` before custom doma
 The goal is to understand basic site performance and content interest without adding unnecessary tracking complexity, cookies, advertising pixels, or invasive user profiling.
 
 ## Current status
-- Analytics is not implemented yet.
-- The public privacy page is now prepared for Vercel Web Analytics as the intended lightweight analytics tool.
-- Do not enable analytics until Julio approves the implementation slice.
+- Vercel Web Analytics is implemented in the app through `@vercel/analytics`.
+- The root App Router layout renders the official `<Analytics />` component.
+- The public privacy page is prepared for Vercel Web Analytics as the intended lightweight analytics tool.
+- The remaining operational step is to confirm Web Analytics is enabled and receiving traffic in the Vercel dashboard.
 - Do not add Google Analytics, advertising pixels, retargeting scripts, or third-party marketing tags in the first tracking slice.
 
 ## Recommended phase 1 tool
@@ -20,7 +21,7 @@ Why:
 - It is enough for early launch questions like page views, top pages, referrers, devices, countries, and content interest.
 - It avoids adding GA4 complexity before there is a real need for campaign attribution or custom conversion funnels.
 
-Before enabling, verify current Vercel Web Analytics behavior in official documentation, especially privacy, cookies, data collection, retention, and regional handling.
+Before changing or expanding analytics, verify current Vercel Web Analytics behavior in official documentation, especially privacy, cookies, data collection, retention, and regional handling.
 
 ## What to measure in phase 1
 - Page views for public routes.
@@ -29,6 +30,22 @@ Before enabling, verify current Vercel Web Analytics behavior in official docume
 - Device and browser trends.
 - Country-level geographic trends if available.
 - Basic launch performance signals.
+
+## Daily reporting position
+Daily analytics summaries are useful, but they are not part of the first implementation.
+
+Current decision:
+- Do not add n8n for analytics reporting yet.
+- Use the Vercel dashboard as the source of truth for early traffic review.
+- Review analytics manually during the first launch period.
+- Revisit automated daily reports after enough launch traffic exists to make trend summaries useful.
+
+Future daily report options:
+- Use a privacy-friendly analytics tool with API access if automated reports become a priority.
+- Build a minimal first-party event store only if there is a clear need for custom reporting.
+- Use n8n later only as an orchestration layer after the analytics data source is selected.
+
+Do not scrape dashboards or store visitor-level data just to create daily summaries.
 
 ## What not to measure yet
 - Individual user identity.
@@ -101,7 +118,7 @@ Deliverables:
 - Confirm no cookie banner is needed, or document if it is needed.
 
 ### Slice 3: Vercel Web Analytics implementation
-Status: current implementation slice.
+Status: implemented.
 
 Deliverables:
 - Use the official `@vercel/analytics` package.
@@ -109,6 +126,11 @@ Deliverables:
 - Keep tracking limited to public page analytics.
 - Do not add custom events in this slice.
 - Validate locally and in Vercel Preview/Production.
+
+Operational follow-up:
+- Confirm Web Analytics is enabled in the Vercel dashboard.
+- Confirm production traffic appears for `https://juliovela.com`.
+- Review analytics manually during the first launch period.
 
 ### Slice 4: Search Console setup
 Deliverables:
@@ -123,9 +145,17 @@ Deliverables:
 - Document whether GA4 is needed.
 - If approved, update privacy and consent strategy before implementation.
 
-## Approval checklist before enabling analytics
-- Julio approves analytics tool.
-- Privacy copy is updated.
+### Slice 6: Daily analytics automation evaluation
+Deliverables:
+- Evaluate only after launch traffic exists.
+- Confirm whether Vercel Web Analytics exposes enough data for automation in the available tooling.
+- If not, compare privacy-friendly analytics tools with API access.
+- Keep n8n out of the first analytics implementation.
+- Document the selected data source before building any automated reports.
+
+## Approval checklist before changing analytics
+- Julio approves the analytics change.
+- Privacy copy is updated if the data collection model changes.
 - No ad pixels or retargeting are included.
 - No secrets are committed.
 - Vercel Preview validates correctly.

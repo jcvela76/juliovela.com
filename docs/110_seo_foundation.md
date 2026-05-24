@@ -126,6 +126,16 @@ Future optional structured data:
 ## SEO and Vercel readiness sequence
 Use small PRs so SEO, hosting, DNS, and production publishing do not get mixed.
 
+## Production SEO audit follow-up
+The 2026-05-24 production SEO audit confirmed the baseline is healthy and identified two launch-priority fixes:
+- Add one semantic homepage `h1` while preserving the approved logo-first hero design.
+- Redirect `www.juliovela.com` to the canonical apex domain `https://juliovela.com`.
+
+Search Console remains an external setup step:
+- Verify `juliovela.com`.
+- Submit `https://juliovela.com/sitemap.xml`.
+- Request indexing for the homepage and first published article.
+
 ### Slice 1: SEO metadata foundation
 Goal:
 - Add metadata defaults and route-specific metadata without changing hosting settings.

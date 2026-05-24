@@ -35,11 +35,13 @@
 - Editorial workflow slice: add professional copy review as a required step before article approval or publication.
 - Article OG image slice: add article-specific social images for blog posts while keeping the default brand OG image as fallback.
 - Brand asset stabilization slice: reuse the approved SVG logo in UI, use a generated PNG derivative for OG routes because `next/og` does not support SVG text nodes, and update favicon/apple icon to the red `://` mark.
-- Analytics strategy slice: document privacy-aware tracking before domain launch; start with Vercel Web Analytics planning, defer GA4, and require privacy copy updates before enabling any analytics.
-- Analytics privacy slice: update `/privacy` copy for planned Vercel Web Analytics without enabling runtime analytics yet.
-- Vercel Web Analytics slice: add the official analytics component for public page analytics only; no GA4, pixels, retargeting, or custom events.
+- Analytics strategy slice: Vercel Web Analytics is the first analytics layer; defer GA4, ad pixels, retargeting, and invasive tracking.
+- Analytics privacy slice: `/privacy` documents Vercel Web Analytics at a high level.
+- Vercel Web Analytics slice: official analytics component added for public page analytics only; no GA4, pixels, retargeting, or custom events.
+- Security alerting slice: use Vercel Firewall/Observability dashboard alerts first; defer n8n automation until a later operational slice.
 - Production launch readiness slice: production smoke checks pass on the Vercel domain, `juliovela.com` is the planned canonical domain, and `www.juliovela.com` should redirect to the apex domain after explicit DNS approval.
 - Domain setup slice: add `juliovela.com` in Vercel, configure `www` redirect, wait for DNS propagation, then rerun smoke checks against the canonical domain.
+- Production SEO follow-up slice: add the homepage semantic `h1`, add a project-level `www` to apex redirect safety net, and document Search Console setup.
 - Post-domain next steps plan: while DNS propagates, proceed with homepage copy final pass; after DNS stabilizes, run canonical-domain smoke tests, Search Console readiness, and post-launch QA.
 - Homepage copy final pass slice: refine positioning around practical technology decision clarity and correct header logo vertical alignment.
 - Homepage copy/mobile audit slice: review deployed homepage copy and mobile rhythm before making additional copy or mobile spacing changes.
@@ -67,4 +69,5 @@
 ## Phase 4 (Refinement)
 - Quality hardening, SEO improvement, and publish-readiness checks
 - Search Console setup after custom domain approval.
-- Analytics refinement after launch traffic exists.
+- Analytics refinement after launch traffic exists, including whether daily reporting automation is worth adding.
+- Security alert refinement after launch traffic exists, including whether webhook or n8n-based alert routing is needed.

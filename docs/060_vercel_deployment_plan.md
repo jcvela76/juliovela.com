@@ -44,6 +44,11 @@ Guardrails:
 - Prefer Vercel dashboard configuration for the first custom domain setup.
 - After DNS propagation, rerun production smoke tests against `https://juliovela.com`.
 
+Project-level redirect:
+- `next.config.mjs` includes a permanent host-based redirect from `www.juliovela.com` to `https://juliovela.com`.
+- Keep the Vercel dashboard domain settings aligned with the same canonical direction.
+- If Vercel primary-domain redirect is active, the app-level redirect acts as a safety net rather than the only canonicalization layer.
+
 ## Future config approach
 - Keep deployments preview-first
 - Maintain clear environment separation
@@ -73,6 +78,24 @@ Content visibility:
 - `published` content is the only content intended for production indexing.
 - Sitemap output excludes preview-only approved content.
 - Production launch still requires explicit Julio approval.
+
+## Analytics and security operations
+Current decision:
+- Use Vercel Web Analytics for early launch traffic visibility.
+- Confirm analytics data in the Vercel dashboard after production deployments and domain changes.
+- Use Vercel Firewall and Observability alerts for security/traffic anomaly awareness where available for the account plan.
+- Do not introduce n8n for analytics or security alerts in the first launch phase.
+- Do not add GA4, ad pixels, retargeting scripts, or invasive tracking without a separate approved slice.
+
+Manual review cadence after launch:
+- Review Web Analytics during the first launch days for top pages, referrers, devices, countries, and article interest.
+- Review Firewall/Observability after unusual traffic spikes, failed deployments, or suspected attacks.
+- Document meaningful findings in `docs/audits/`.
+
+Future automation:
+- Daily analytics summaries may be evaluated later after enough traffic exists.
+- n8n may be used later as an orchestration layer, but only after selecting a reliable data source with appropriate API access.
+- Security alert webhooks may be added later, but only after documenting webhook authentication and secret handling.
 
 ## First Vercel Preview setup checklist
 Use the Vercel Dashboard first. Do not add CLI tokens, `.vercel/`, or project IDs to the repository.
@@ -205,7 +228,16 @@ Use separate slices so hosting setup does not get mixed with SEO, DNS, or publis
 - Confirm `sitemap.xml` uses `https://juliovela.com` URLs.
 - Confirm `www.juliovela.com` redirects to `https://juliovela.com`.
 - Confirm Vercel Web Analytics receives traffic for the canonical domain.
+- Confirm Vercel Firewall/Observability settings are reviewed.
 - Submit `https://juliovela.com` to Google Search Console after DNS is stable.
+
+### 7. Google Search Console setup
+- Add the domain property for `juliovela.com`.
+- Verify ownership using the DNS method recommended by Google.
+- Do not change DNS without explicit approval.
+- Submit `https://juliovela.com/sitemap.xml`.
+- Request indexing for `/` and `/blog/choosing-the-right-ai-tool`.
+- Review coverage/indexing status after Google processes the sitemap.
 
 ## Local versus Vercel runtime
 - Local development uses exact versions through `.mise.toml`.
