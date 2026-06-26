@@ -8,6 +8,7 @@ import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 
 const contactEmail = "mailto:me@juliovela.com";
+const linkedInUrl = "https://www.linkedin.com/in/juliovelanyc/";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Julio Vela Tech Solutions | Practical AI, Automation, and Software Guidance",
@@ -56,6 +57,14 @@ export default function HomePage() {
               </div>
               <div className="flex flex-wrap gap-x-5 gap-y-3">
                 <span>© 2026</span>
+                <a
+                  className="transition-colors hover:text-[color:var(--brand-red)]"
+                  href={linkedInUrl}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >
+                  LinkedIn
+                </a>
                 <Link className="transition-colors hover:text-[color:var(--brand-red)]" href="/privacy">
                   Privacy
                 </Link>

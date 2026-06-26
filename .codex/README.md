@@ -19,9 +19,12 @@ Use these skills in order for content work:
 2. `editorial-reviewer`
 3. `copy-editor` when line-level rewrite polish is needed
 4. `seo-auditor`
-5. `visual-content`
-6. `linkedin-editor`
-7. `qa-auditor`
+5. `article-image-director`
+6. `visual-content`
+7. `linkedin-editor`
+8. `qa-auditor`
+
+For publication-readiness work, use `deep-article-review-panel` to orchestrate the required review lenses. When sub-agent tooling is available and explicitly requested, the panel may be split into independent reviewers.
 
 Generated or edited content remains draft/review content until Julio explicitly approves it.
 

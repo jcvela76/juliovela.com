@@ -3,7 +3,14 @@ export type SiteSection = {
   eyebrow: string;
   title: string;
   summary: string;
-  items?: string[];
+  items?: Array<
+    | string
+    | {
+        label: string;
+        href?: string;
+        meta?: string;
+      }
+  >;
   note?: string;
   draft?: boolean;
   theme: "white" | "soft" | "dark" | "graphite";
@@ -53,13 +60,20 @@ export const insights: SiteSection = {
   id: "insights",
   eyebrow: "04 / Insights",
   title: "Field notes for practical technology work.",
-  summary: "Short, useful guides on choosing tools, improving workflows, and making better software decisions without getting pulled into hype.",
+  summary: "Published articles and practical notes on choosing tools, improving workflows, and making better software decisions without getting pulled into hype.",
   items: [
-    "How to choose AI tools by workflow impact",
-    "When automation saves time and when it adds overhead",
-    "How to evaluate a tech stack before replacing it",
+    {
+      label: "Choosing the Right AI Tool",
+      href: "/blog/choosing-the-right-ai-tool",
+      meta: "Published guide",
+    },
+    {
+      label: "View all insights",
+      href: "/blog",
+      meta: "Blog index",
+    },
   ],
-  note: "Published and upcoming guides",
+  note: "Published guides",
   theme: "graphite",
 };
 

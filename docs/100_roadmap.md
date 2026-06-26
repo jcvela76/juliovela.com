@@ -34,6 +34,8 @@
 - Homepage/blog copy slice: sharpen public positioning and remove internal draft-language signals from the public Insights section.
 - Editorial workflow slice: add professional copy review as a required step before article approval or publication.
 - Editorial skill slice: add `editorial-reviewer` as the formal content gate before SEO, visual review, LinkedIn adaptation, approval, or publication.
+- Article review panel slice: define a repeatable deep-review panel for editorial, copy, SEO, article image, visual, LinkedIn, and QA checks before publication.
+- Article image director slice: add article-specific image direction as a required step before approving or publishing blog posts.
 - Article OG image slice: add article-specific social images for blog posts while keeping the default brand OG image as fallback.
 - Brand asset stabilization slice: reuse the approved SVG logo in UI, use a generated PNG derivative for OG routes because `next/og` does not support SVG text nodes, and update favicon/apple icon to the red `://` mark.
 - Analytics strategy slice: Vercel Web Analytics is the first analytics layer; defer GA4, ad pixels, retargeting, and invasive tracking.

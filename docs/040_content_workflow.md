@@ -32,11 +32,12 @@ Do not use a production database for content in the first content slice.
 - Preserves Julio Vela's practical, technical, non-hype voice
 5. `copy-editor` may be used for line-level rewrites, hook variants, transitions, and closing language when needed.
 6. `seo-auditor` confirms metadata, heading structure, slug, canonical plan, tags, and structured-data readiness.
-7. `visual-content` confirms cover/OG direction and alt text plan.
-8. `linkedin-editor` creates or refines the LinkedIn-native version.
-9. Draft status becomes `ready_for_review`.
-10. Julio reviews the rendered article and supporting assets in preview/PR.
-11. On approval, move to approved folders and prepare publish plan.
+7. `article-image-director` defines article-specific OG/social image strategy, concepts, prompt, alt text, and fallback decision.
+8. `visual-content` confirms cover/OG direction, image guardrails, and brand fit.
+9. `linkedin-editor` creates or refines the LinkedIn-native version.
+10. Draft status becomes `ready_for_review`.
+11. Julio reviews the rendered article and supporting assets in preview/PR.
+12. On approval, move to approved folders and prepare publish plan.
 
 ## Rules
 - All generated items are drafts until approved.
@@ -48,6 +49,7 @@ Do not use a production database for content in the first content slice.
 - Copy review may improve clarity, rhythm, structure, hook, transitions, and closing, but must not invent claims, metrics, clients, endorsements, or expertise.
 - `editorial-reviewer` is the required editorial gate for articles and meaningful public page copy.
 - `copy-editor` is optional support for line-level rewrite polish, but it does not replace the editorial gate.
+- `article-image-director` is required for every article before approval or publication, even when the final decision is to use the default brand OG fallback.
 - Content status values:
   - `idea`, `draft`, `ready_for_review`, `approved`, `published`, `archived`
 
@@ -57,11 +59,75 @@ Default content skill order:
 2. `editorial-reviewer`
 3. `copy-editor` if line-level rewrite support is needed
 4. `seo-auditor`
-5. `visual-content`
-6. `linkedin-editor`
-7. `qa-auditor`
+5. `article-image-director`
+6. `visual-content`
+7. `linkedin-editor`
+8. `qa-auditor`
 
 Do not skip `editorial-reviewer` for public articles. SEO can make a page easier to find, but editorial review makes the content worth finding.
+
+## Deep Article Review Panel
+Before any blog article is approved for publication, run a deep article-review panel. The panel is a structured review sequence that uses existing project skills as independent lenses.
+
+The panel may be run by one Codex session or by separate sub-agents when sub-agent tooling is available and explicitly requested. The panel does not publish content. It produces a pass/fail recommendation and a list of required edits before Julio approval.
+
+Required inputs:
+- Article file path
+- Current article status
+- Intended audience
+- Practical takeaway
+- SEO title and description
+- Canonical URL plan
+- Cover/OG image or image prompt
+- LinkedIn draft, if applicable
+- Preview URL, when available
+
+Review roles:
+- Editorial Lead: `editorial-reviewer`
+- Copy Polish: `copy-editor`
+- SEO Reviewer: `seo-auditor`
+- Article Image Director: `article-image-director`
+- Visual Reviewer: `visual-content`
+- LinkedIn Reviewer: `linkedin-editor`
+- QA / Publication Gate: `qa-auditor`
+
+## Panel decision
+The article may move forward only if every required reviewer returns one of:
+- `pass`
+- `pass_with_edits` with edits completed
+
+The article must not move to `published` if any reviewer returns:
+- `revise_before_review`
+- `needs_visual_review`
+- `revise_before_publish`
+- `blocked`
+
+Final states:
+- `pass`: ready for Julio approval or publish PR
+- `pass_with_edits`: can proceed only after listed edits are applied
+- `revise_before_review`: not ready for approval
+- `blocked`: cannot proceed until the blocker is resolved
+
+## Article Review Record
+Create one review record per article before publication.
+
+Path:
+`docs/audits/YYYY-MM-DD-article-review-[slug].md`
+
+Required sections:
+- Article
+- Status
+- Preview URL
+- Editorial review
+- Copy review
+- SEO review
+- Article image review
+- Visual/OG review
+- LinkedIn review
+- QA review
+- Required fixes
+- Final decision
+- Julio approval status
 
 ## Why files first
 - Vercel handles static content and preview deployments well.
@@ -151,6 +217,8 @@ Publish readiness rule:
 - Confirm editorial fit, SEO metadata, legal/disclosure needs, canonical URL behavior, visual/OG image readiness, and production visibility expectations.
 - Do not publish from Markdown/frontmatter review alone.
 - Confirm the article has passed professional copy review.
+- Confirm the article has passed the deep article-review panel.
+- Confirm article-specific image direction or explicit fallback approval has been recorded.
 - Julio must review the rendered Vercel Preview article page and `/blog` listing before publication.
 - Julio must approve the visual/OG image plan, even if the default brand OG image is used temporarily.
 - The publish PR must run full validation and be reviewed in Vercel Preview before merge.

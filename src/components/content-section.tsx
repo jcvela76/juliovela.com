@@ -1,9 +1,20 @@
+import Link from "next/link";
+import React from "react";
+
+type ContentSectionItem =
+  | string
+  | {
+      label: string;
+      href?: string;
+      meta?: string;
+    };
+
 type ContentSectionProps = {
   id: string;
   eyebrow: string;
   title: string;
   summary: string;
-  items?: string[];
+  items?: ContentSectionItem[];
   note?: string;
   draft?: boolean;
   theme: "white" | "soft" | "dark" | "graphite";
@@ -83,14 +94,32 @@ export default function ContentSection({
         {note ? <p className={`mt-4 text-sm ${styles.note}`}>{note}</p> : null}
         {items ? (
           <ul className="mt-10 grid gap-3 md:grid-cols-2">
-            {items.map((item) => (
-              <li
-                key={item}
-                className={`border-l-2 px-4 py-3 text-base leading-relaxed sm:px-5 sm:py-4 md:text-lg ${styles.item}`}
-              >
-                {item}
-              </li>
-            ))}
+            {items.map((item) => {
+              const sectionItem = typeof item === "string" ? { label: item } : item;
+
+              return (
+                <li
+                  key={sectionItem.label}
+                  className={`border-l-2 px-4 py-3 text-base leading-relaxed sm:px-5 sm:py-4 md:text-lg ${styles.item}`}
+                >
+                  {sectionItem.href ? (
+                    <Link
+                      className="group inline-flex flex-col gap-2 transition-colors hover:text-[color:var(--brand-red)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand-red)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--brand-graphite)]"
+                      href={sectionItem.href}
+                    >
+                      <span>{sectionItem.label}</span>
+                      {sectionItem.meta ? (
+                        <span className="text-xs uppercase tracking-[0.18em] text-[color:var(--brand-interface)] transition-colors group-hover:text-[color:var(--brand-red)]">
+                          {sectionItem.meta}
+                        </span>
+                      ) : null}
+                    </Link>
+                  ) : (
+                    sectionItem.label
+                  )}
+                </li>
+              );
+            })}
           </ul>
         ) : null}
       </div>
