@@ -19,21 +19,24 @@ Do not use a production database for content in the first content slice.
 ## Flow
 1. Julio adds a topic to `content/topics/topic_queue.yml`.
 2. Topic starts at status `idea`.
-3. Content strategist drafts:
+3. `content-strategist` drafts:
 - Blog MDX draft
 - LinkedIn draft
 - Image prompt / visual plan
 - SEO title/description and excerpt
-4. Professional copy review sharpens the article:
+4. `editorial-reviewer` performs the professional editorial gate:
 - Clarifies the audience and practical takeaway
 - Improves the opening hook and closing
 - Removes vague or generic language
+- Returns `pass`, `pass_with_edits`, or `revise_before_review`
 - Preserves Julio Vela's practical, technical, non-hype voice
-5. SEO review confirms metadata, heading structure, slug, canonical plan, tags, and structured-data readiness.
-6. Visual review confirms cover/OG direction and alt text plan.
-7. Draft status becomes `ready_for_review`.
-8. Julio reviews the rendered article and supporting assets in preview/PR.
-9. On approval, move to approved folders and prepare publish plan.
+5. `copy-editor` may be used for line-level rewrites, hook variants, transitions, and closing language when needed.
+6. `seo-auditor` confirms metadata, heading structure, slug, canonical plan, tags, and structured-data readiness.
+7. `visual-content` confirms cover/OG direction and alt text plan.
+8. `linkedin-editor` creates or refines the LinkedIn-native version.
+9. Draft status becomes `ready_for_review`.
+10. Julio reviews the rendered article and supporting assets in preview/PR.
+11. On approval, move to approved folders and prepare publish plan.
 
 ## Rules
 - All generated items are drafts until approved.
@@ -43,8 +46,22 @@ Do not use a production database for content in the first content slice.
 - A merge to `main` may make approved content eligible for production, but production publishing still follows the deployment approval rules.
 - Every article must pass professional copy review before approval or publication.
 - Copy review may improve clarity, rhythm, structure, hook, transitions, and closing, but must not invent claims, metrics, clients, endorsements, or expertise.
+- `editorial-reviewer` is the required editorial gate for articles and meaningful public page copy.
+- `copy-editor` is optional support for line-level rewrite polish, but it does not replace the editorial gate.
 - Content status values:
   - `idea`, `draft`, `ready_for_review`, `approved`, `published`, `archived`
+
+## Skill sequence
+Default content skill order:
+1. `content-strategist`
+2. `editorial-reviewer`
+3. `copy-editor` if line-level rewrite support is needed
+4. `seo-auditor`
+5. `visual-content`
+6. `linkedin-editor`
+7. `qa-auditor`
+
+Do not skip `editorial-reviewer` for public articles. SEO can make a page easier to find, but editorial review makes the content worth finding.
 
 ## Why files first
 - Vercel handles static content and preview deployments well.

@@ -13,6 +13,18 @@ This directory stores project-local Codex guidance for Julio Vela.
 - Keep changes small and auditable.
 - Do not create global side effects.
 
+## Content workflow skills
+Use these skills in order for content work:
+1. `content-strategist`
+2. `editorial-reviewer`
+3. `copy-editor` when line-level rewrite polish is needed
+4. `seo-auditor`
+5. `visual-content`
+6. `linkedin-editor`
+7. `qa-auditor`
+
+Generated or edited content remains draft/review content until Julio explicitly approves it.
+
 ## Reminders
 - Never add secrets, tokens, or keys to this repo.
 - Do not modify global Codex config from this repo.

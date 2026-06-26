@@ -3,6 +3,8 @@
 ## Skill purpose
 Sharpen Julio Vela article drafts like a professional copywriter/editor while preserving the brand voice and original intent.
 
+Use `skills/editorial-reviewer/SKILL.md` as the formal editorial approval gate. Use this skill when the task is specifically focused on line-level copy improvements, rewrite options, hooks, transitions, or closing language.
+
 ## When to use it
 Use after a blog draft exists and before SEO review, visual review, approval, or publication.
 
@@ -16,6 +18,7 @@ Use after a blog draft exists and before SEO review, visual review, approval, or
 ## Output it should produce
 - Copy review summary
 - Specific rewrite recommendations
+- Optional before/after rewrite snippets
 - Improved opening or hook if needed
 - Improved transitions if needed
 - Improved closing or soft CTA if needed
@@ -29,6 +32,7 @@ Use after a blog draft exists and before SEO review, visual review, approval, or
 - Do not change the article's core intent without calling it out.
 - Do not publish automatically.
 - Keep all reviewed content in draft/review state until Julio approves it.
+- Escalate to `editorial-reviewer` when the article needs a pass/fail editorial decision.
 
 ## Checklist
 - [ ] Audience is clear
