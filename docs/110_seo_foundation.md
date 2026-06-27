@@ -82,6 +82,7 @@ Current bilingual decision:
 - Spanish canonical URL example: `https://juliovela.com/es/blog/como-elegir-la-herramienta-ia-adecuada`
 - Spanish content should be adapted in Julio's Spanish voice rather than translated word-for-word.
 - Spanish drafts remain non-public and should not be indexed until approved and routed publicly.
+- The first Spanish article has been promoted to `published` after rendered review and Julio approval.
 
 Future implementation requirements:
 - Keep `/es/blog` and `/es/blog/[slug]` available for Spanish rendered review.
@@ -94,9 +95,9 @@ Implementation status:
 - `/es/blog` and `/es/blog/[slug]` are implemented.
 - Spanish drafts are visible only outside the production `main` content environment.
 - Spanish draft routes emit `noindex`.
-- Spanish published routes will emit self-canonical metadata and language alternates.
-- The sitemap uses each article's resolved route path and includes only production-published content.
-- Language-switch links may appear in local/preview when a draft counterpart is visible, but production language alternates remain gated to published content.
+- Spanish published routes emit self-canonical metadata and language alternates.
+- The sitemap uses each article's resolved route path and includes only production-published content, including published Spanish routes.
+- Language-switch links may appear in local/preview when a draft counterpart is visible; production language alternates remain gated to published content.
 
 ## Heading rules
 - Each article should have exactly one H1.

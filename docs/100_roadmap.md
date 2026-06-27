@@ -44,6 +44,7 @@
 - Article OG image slice: first article-specific image is implemented using a Figma-approved exported PNG at `content/assets/images/choosing-the-right-ai-tool/approved-og.png`, while the default brand OG image remains the fallback pattern for articles without custom art.
 - Bilingual content model slice: first Spanish article draft created with a localized SEO slug; `hreflang` and Spanish sitemap inclusion remain gated until publication.
 - Spanish rendered preview slice: `/es/blog` and `/es/blog/[slug]` implemented for Spanish draft review outside production; production remains gated to published content only.
+- Spanish article publication slice: promote the approved Spanish AI-tool article to `published`, enable bilingual alternates, and include the Spanish URL in sitemap after PR preview approval.
 - Brand asset stabilization slice: reuse the approved SVG logo in UI, use a generated PNG derivative for OG routes because `next/og` does not support SVG text nodes, and update favicon/apple icon to the red `://` mark.
 - Analytics strategy slice: Vercel Web Analytics is the first analytics layer; defer GA4, ad pixels, retargeting, and invasive tracking.
 - Analytics privacy slice: `/privacy` documents Vercel Web Analytics at a high level.
