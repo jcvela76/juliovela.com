@@ -36,7 +36,14 @@
 - Editorial skill slice: add `editorial-reviewer` as the formal content gate before SEO, visual review, LinkedIn adaptation, approval, or publication.
 - Article review panel slice: define a repeatable deep-review panel for editorial, copy, SEO, article image, visual, LinkedIn, and QA checks before publication.
 - Article image director slice: add article-specific image direction as a required step before approving or publishing blog posts.
-- Article OG image slice: add article-specific social images for blog posts while keeping the default brand OG image as fallback.
+- First article review backfill slice: run the deep-review panel against `choosing-the-right-ai-tool`, record canonical/cover image metadata, and store the article image direction prompt.
+- First article social package slice: create the LinkedIn-native draft, social image review checklist, and no-auto-publish approval gate before LinkedIn sharing.
+- Editorial illustration system slice: add `editorial-illustrator` and shift article images toward original conceptual editorial illustration, avoiding imitation of publications or artists.
+- First article illustration direction slice: select and store the approved direction asset for `choosing-the-right-ai-tool`; next step is implementing the rendered OG composition.
+- Article image copy system slice: use a consistent minimal lockup for all article images, `:// [post title]` plus one short support line.
+- Article OG image slice: first article-specific image is implemented using a Figma-approved exported PNG at `content/assets/images/choosing-the-right-ai-tool/approved-og.png`, while the default brand OG image remains the fallback pattern for articles without custom art.
+- Bilingual content model slice: first Spanish article draft created with a localized SEO slug; `hreflang` and Spanish sitemap inclusion remain gated until publication.
+- Spanish rendered preview slice: `/es/blog` and `/es/blog/[slug]` implemented for Spanish draft review outside production; production remains gated to published content only.
 - Brand asset stabilization slice: reuse the approved SVG logo in UI, use a generated PNG derivative for OG routes because `next/og` does not support SVG text nodes, and update favicon/apple icon to the red `://` mark.
 - Analytics strategy slice: Vercel Web Analytics is the first analytics layer; defer GA4, ad pixels, retargeting, and invasive tracking.
 - Analytics privacy slice: `/privacy` documents Vercel Web Analytics at a high level.

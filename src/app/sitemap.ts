@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const articleEntries = readApprovedBlogPosts("production", "main").map((post) => ({
-    url: urlFor(`/blog/${post.slug}`),
+    url: urlFor(post.routePath),
     lastModified: post.date,
     changeFrequency: "monthly" as const,
     priority: 0.7,

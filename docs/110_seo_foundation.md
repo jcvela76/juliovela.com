@@ -19,6 +19,10 @@ Planned public blog URL shape:
 - `/blog`
 - `/blog/[slug]`
 
+Planned bilingual public URL shape:
+- English articles: `/blog/[english-slug]`
+- Spanish articles: `/es/blog/[spanish-slug]`
+
 Draft review URL:
 - `/drafts-preview`
 
@@ -70,6 +74,30 @@ approved_at: ""
 - `approved_by`: empty until approval.
 - `approved_at`: empty until approval.
 
+## Bilingual SEO plan
+Spanish article versions should use localized slugs for search clarity and reader trust.
+
+Current bilingual decision:
+- English canonical URL example: `https://juliovela.com/blog/choosing-the-right-ai-tool`
+- Spanish canonical URL example: `https://juliovela.com/es/blog/como-elegir-la-herramienta-ia-adecuada`
+- Spanish content should be adapted in Julio's Spanish voice rather than translated word-for-word.
+- Spanish drafts remain non-public and should not be indexed until approved and routed publicly.
+
+Future implementation requirements:
+- Keep `/es/blog` and `/es/blog/[slug]` available for Spanish rendered review.
+- Add `alternates.languages` metadata or equivalent `hreflang` support for paired article pages.
+- Keep English and Spanish canonicals self-referencing after publication.
+- Include Spanish URLs in `sitemap.xml` only when their article status is `published`.
+- Keep draft Spanish URLs out of public navigation, public sitemap output, and production indexing.
+
+Implementation status:
+- `/es/blog` and `/es/blog/[slug]` are implemented.
+- Spanish drafts are visible only outside the production `main` content environment.
+- Spanish draft routes emit `noindex`.
+- Spanish published routes will emit self-canonical metadata and language alternates.
+- The sitemap uses each article's resolved route path and includes only production-published content.
+- Language-switch links may appear in local/preview when a draft counterpart is visible, but production language alternates remain gated to published content.
+
 ## Heading rules
 - Each article should have exactly one H1.
 - H2 headings should describe clear sections.
@@ -84,6 +112,9 @@ Every article should eventually have:
 - OG image path or generated OG image plan
 - Alt text
 - Image approval checklist
+- Final approved PNG asset when an article-specific social image is used
+
+Article-specific OG images should prefer exported PNG assets for social reliability. SVG may be useful for design iteration, but final article social previews should use approved PNGs unless a future platform-specific test proves another format is safer.
 
 Do not use:
 - Generic AI robot visuals
@@ -93,11 +124,12 @@ Do not use:
 - Stolen or imitation brand styles
 
 ## Canonical URL plan
-Before production publish:
+Before production publish or while content is preview-only:
 - `canonical_url` may remain empty.
 
 For published production articles:
 - Use `https://juliovela.com/blog/[slug]`.
+- Once the production domain is known and the article is live, set `canonical_url` explicitly in frontmatter.
 - If an article is syndicated or heavily reused elsewhere, decide the canonical source before publishing.
 
 ## Sitemap and robots plan
@@ -379,3 +411,10 @@ Before a post can be published:
 - Public `/blog` should read only from `content/approved/blog/`.
 - Production blog rendering should include only `published` content.
 - The first approved preview article exists for local and Vercel Preview review, but is not production-published.
+
+## Article-specific OG image status
+For `choosing-the-right-ai-tool`, the article-specific OG route now serves the approved Figma-exported PNG:
+
+`content/assets/images/choosing-the-right-ai-tool/approved-og.png`
+
+The route remains `/blog/choosing-the-right-ai-tool/opengraph-image`, so article metadata can keep pointing to the stable route while the underlying asset remains reviewable in git.

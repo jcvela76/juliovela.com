@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { isBlogStatusVisible, isProductionContentEnvironment } from "./blog";
+import {
+  findVisibleBlogPostByLanguage,
+  isBlogStatusVisible,
+  isProductionContentEnvironment,
+  readApprovedBlogPostsByLanguage,
+  readDraftBlogPostsByLanguage,
+} from "./blog";
 
 describe("blog visibility rules", () => {
   it("shows approved content outside production", () => {
@@ -27,5 +33,41 @@ describe("blog visibility rules", () => {
     expect(isProductionContentEnvironment("production", undefined)).toBe(true);
     expect(isProductionContentEnvironment("production", "feature/example")).toBe(false);
     expect(isProductionContentEnvironment("preview", "feature/example")).toBe(false);
+  });
+
+  it("keeps English approved posts separate from Spanish drafts", () => {
+    const englishPosts = readApprovedBlogPostsByLanguage("en");
+
+    expect(englishPosts).toContainEqual(
+      expect.objectContaining({
+        language: "en",
+        routePath: "/blog/choosing-the-right-ai-tool",
+        slug: "choosing-the-right-ai-tool",
+      }),
+    );
+    expect(englishPosts).not.toContainEqual(
+      expect.objectContaining({
+        language: "es",
+      }),
+    );
+  });
+
+  it("allows Spanish drafts outside production for rendered review", () => {
+    const spanishDrafts = readDraftBlogPostsByLanguage("es", "preview", "feature/spanish-blog-preview");
+
+    expect(spanishDrafts).toContainEqual(
+      expect.objectContaining({
+        language: "es",
+        routePath: "/es/blog/como-elegir-la-herramienta-ia-adecuada",
+        slug: "como-elegir-la-herramienta-ia-adecuada",
+        status: "draft",
+      }),
+    );
+  });
+
+  it("blocks Spanish drafts from production content resolution", () => {
+    expect(
+      findVisibleBlogPostByLanguage("como-elegir-la-herramienta-ia-adecuada", "es", "production", "main"),
+    ).toBeNull();
   });
 });
