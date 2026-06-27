@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { readApprovedBlogPostsByLanguage } from "@/lib/content/blog";
-import { createPageMetadata } from "@/lib/seo";
+import { readApprovedBlogPostsByLanguage, readVisibleBlogPostsByLanguage } from "@/lib/content/blog";
+import { createPageMetadata, indexableRobots, noIndexRobots } from "@/lib/seo";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Blog",
-  description:
-    "Clear writing on AI tools, automation, software strategy, and web decisions focused on what is useful, reliable, and worth adopting.",
-  path: "/blog",
-});
+export function generateMetadata(): Metadata {
+  const hasPublishedSpanishPosts = readApprovedBlogPostsByLanguage("es", "production", "main").some(
+    (post) => post.status === "published",
+  );
 
-export default function BlogIndexPage() {
-  const posts = readApprovedBlogPostsByLanguage("en");
+  return createPageMetadata({
+    title: "Artículos en español",
+    description:
+      "Guías prácticas en español sobre IA, automatización, estrategia de software y mejores decisiones tecnológicas.",
+    path: "/es/blog",
+    robots: hasPublishedSpanishPosts ? indexableRobots : noIndexRobots,
+  });
+}
+
+export default function SpanishBlogIndexPage() {
+  const posts = readVisibleBlogPostsByLanguage("es");
   const isProduction = process.env.VERCEL_ENV === "production";
 
   return (
@@ -25,31 +32,36 @@ export default function BlogIndexPage() {
         </Link>
 
         <div className="mt-16 border-b border-[color:var(--brand-graphite)]/10 pb-10">
-          <p className="text-sm font-semibold uppercase text-[color:var(--brand-red)]">Blog</p>
+          <p className="text-sm font-semibold uppercase text-[color:var(--brand-red)]">Español</p>
           <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-none md:text-7xl">
-            Practical guides for better technology decisions.
+            Guías prácticas para tomar mejores decisiones de tecnología.
           </h1>
           <p className="mt-6 max-w-3xl text-xl leading-relaxed text-[color:var(--brand-graphite)]">
-            Clear writing on AI tools, automation, software strategy, and web decisions - focused on what is useful,
-            reliable, and worth adopting.
+            Contenido en español sobre IA, automatización, estrategia de software y herramientas digitales, con enfoque
+            práctico y sin hype.
           </p>
         </div>
 
         {posts.length > 0 ? (
           <div className="mt-10 grid gap-6">
             {posts.map((post) => (
-              <article key={post.slug} className="border-l-2 border-[color:var(--brand-red)] bg-[color:var(--brand-white)] p-6 md:p-8">
+              <article
+                key={post.slug}
+                className="border-l-2 border-[color:var(--brand-red)] bg-[color:var(--brand-white)] p-6 md:p-8"
+              >
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--brand-red)]">
                       {post.date}
                     </p>
                     <h2 className="mt-3 text-3xl font-semibold leading-tight md:text-4xl">
-                      <Link className="transition-colors hover:text-[color:var(--brand-red)]" href={`/blog/${post.slug}`}>
+                      <Link className="transition-colors hover:text-[color:var(--brand-red)]" href={post.routePath}>
                         {post.title}
                       </Link>
                     </h2>
-                    <p className="mt-4 max-w-3xl text-lg leading-relaxed text-[color:var(--brand-graphite)]">{post.excerpt}</p>
+                    <p className="mt-4 max-w-3xl text-lg leading-relaxed text-[color:var(--brand-graphite)]">
+                      {post.excerpt}
+                    </p>
                   </div>
                   {!isProduction ? (
                     <span className="w-fit border border-[color:var(--brand-graphite)]/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-[color:var(--brand-interface)]">
@@ -67,9 +79,11 @@ export default function BlogIndexPage() {
           </div>
         ) : (
           <div className="mt-10 border-l-2 border-[color:var(--brand-red)] bg-[color:var(--brand-white)] p-6 md:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--brand-red)]">No public articles yet</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--brand-red)]">
+              No hay artículos públicos en español todavía
+            </p>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[color:var(--brand-graphite)]">
-              Approved articles will appear here after Julio reviews them. Drafts remain private to the internal preview workflow.
+              Las versiones en español aparecerán aquí después de revisión, aprobación y publicación explícita.
             </p>
           </div>
         )}

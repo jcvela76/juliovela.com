@@ -125,7 +125,7 @@ function absoluteSiteUrl(pathOrUrl: string) {
 }
 
 export function createBlogPostingJsonLd(post: BlogPost): BlogPostingJsonLd {
-  const articleUrl = absoluteSiteUrl(post.canonicalUrl || `/blog/${post.slug}`);
+  const articleUrl = absoluteSiteUrl(post.canonicalUrl || post.routePath);
   const imageUrl = absoluteSiteUrl(createArticleOgImage(post.slug, post.title).url);
 
   return {

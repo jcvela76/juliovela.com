@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { alt, contentType, generateStaticParams, size } from "@/app/blog/[slug]/opengraph-image";
+import {
+  alt,
+  articleOpenGraphImageFile,
+  contentType,
+  generateStaticParams,
+  size,
+} from "@/app/blog/[slug]/opengraph-image";
 
 describe("article Open Graph image", () => {
   it("uses the expected social preview dimensions", () => {
@@ -18,5 +24,9 @@ describe("article Open Graph image", () => {
     expect(generateStaticParams()).toContainEqual({
       slug: "choosing-the-right-ai-tool",
     });
+  });
+
+  it("uses the approved exported PNG asset for article-specific OG images", () => {
+    expect(articleOpenGraphImageFile).toBe("approved-og.png");
   });
 });

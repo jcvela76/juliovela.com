@@ -83,6 +83,7 @@ describe("SEO metadata helpers", () => {
 
   it("creates BlogPosting structured data for published articles", () => {
     const jsonLd = createBlogPostingJsonLd({
+      alternateLanguageUrl: "",
       author: "Julio Vela",
       body: "# Example",
       canonicalUrl: "",
@@ -90,13 +91,17 @@ describe("SEO metadata helpers", () => {
       description: "A practical article description.",
       excerpt: "A practical article excerpt.",
       filePath: "content/approved/blog/example.mdx",
+      language: "en",
       ogDescription: "Social description.",
       ogTitle: "Social title",
+      routePath: "/blog/example-article",
       seoTitle: "Example SEO Title",
       slug: "example-article",
+      source: "approved",
       status: "published",
       tags: ["AI tools", "workflows"],
       title: "Example Article",
+      translationOf: "",
     });
 
     expect(jsonLd).toMatchObject({
@@ -129,6 +134,7 @@ describe("SEO metadata helpers", () => {
 
   it("serializes structured data safely for inline script rendering", () => {
     const jsonLd = createBlogPostingJsonLd({
+      alternateLanguageUrl: "",
       author: "Julio Vela",
       body: "",
       canonicalUrl: "https://juliovela.com/blog/custom",
@@ -136,13 +142,17 @@ describe("SEO metadata helpers", () => {
       description: "Description with <tag> text.",
       excerpt: "",
       filePath: "content/approved/blog/custom.mdx",
+      language: "en",
       ogDescription: "",
       ogTitle: "",
+      routePath: "/blog/custom",
       seoTitle: "",
       slug: "custom",
+      source: "approved",
       status: "published",
       tags: [],
       title: "Custom Title",
+      translationOf: "",
     });
 
     expect(serializeJsonLd(jsonLd)).toContain("\\u003ctag>");
