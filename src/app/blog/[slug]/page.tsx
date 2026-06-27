@@ -65,8 +65,16 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
   };
 
   if (isPublished) {
+    const spanishPost = readApprovedBlogPostsByLanguage("es", "production", "main").find(
+      (candidate) => candidate.translationOf === post.slug && candidate.status === "published",
+    );
+
     metadata.alternates = {
       canonical: post.canonicalUrl || `/blog/${post.slug}`,
+      languages: {
+        en: post.canonicalUrl || `/blog/${post.slug}`,
+        ...(spanishPost ? { es: spanishPost.canonicalUrl || spanishPost.routePath } : {}),
+      },
     };
   } else {
     delete metadata.alternates;

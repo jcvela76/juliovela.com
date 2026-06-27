@@ -22,5 +22,6 @@ describe("sitemap metadata route", () => {
     const urls = sitemap().map((entry) => entry.url);
 
     expect(urls).toContain(`${siteMetadata.baseUrl}/blog/choosing-the-right-ai-tool`);
+    expect(urls).toContain(`${siteMetadata.baseUrl}/es/blog/como-elegir-la-herramienta-ia-adecuada`);
   });
 });

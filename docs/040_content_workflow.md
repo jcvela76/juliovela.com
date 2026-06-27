@@ -166,9 +166,9 @@ The site may support paired English and Spanish article versions, but translated
 Current decision:
 - English public articles use `/blog/[english-slug]`.
 - Spanish public articles should use localized SEO slugs under `/es/blog/[spanish-slug]`.
-- The first Spanish draft uses `content/drafts/blog/es/como-elegir-la-herramienta-ia-adecuada.mdx`.
+- The first Spanish published article uses `content/approved/blog/es/como-elegir-la-herramienta-ia-adecuada.mdx`.
 - Spanish content should be adapted for natural Spanish voice, not translated literally.
-- Spanish versions remain `draft` until Julio approves the rendered page.
+- Spanish versions remain `draft` until Julio approves the rendered page. Once approved, move them to `content/approved/blog/[language]/`, set `status: published`, and add approval metadata.
 
 Recommended bilingual frontmatter fields:
 - `language`: content language, for example `en` or `es`.
@@ -186,7 +186,8 @@ Rules:
 Implementation status:
 - `/es/blog` and `/es/blog/[slug]` exist for Spanish rendered review.
 - Spanish drafts remain noindex while they are not published.
-- `hreflang` and sitemap inclusion are still gated on `status: published`.
+- `hreflang` and sitemap inclusion are gated on `status: published`.
+- The first Spanish article is approved for publication with localized slug `/es/blog/como-elegir-la-herramienta-ia-adecuada`.
 - Article pages may show language-switch links only when the counterpart is visible in the current environment.
 - Draft Spanish counterparts can be linked from the English article in local/preview, but must not appear on production `main`.
 

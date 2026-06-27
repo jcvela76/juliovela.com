@@ -35,7 +35,7 @@ describe("blog visibility rules", () => {
     expect(isProductionContentEnvironment("preview", "feature/example")).toBe(false);
   });
 
-  it("keeps English approved posts separate from Spanish drafts", () => {
+  it("keeps English approved posts separate from published Spanish posts", () => {
     const englishPosts = readApprovedBlogPostsByLanguage("en");
 
     expect(englishPosts).toContainEqual(
@@ -52,22 +52,34 @@ describe("blog visibility rules", () => {
     );
   });
 
-  it("allows Spanish drafts outside production for rendered review", () => {
-    const spanishDrafts = readDraftBlogPostsByLanguage("es", "preview", "feature/spanish-blog-preview");
+  it("keeps the approved Spanish article visible in production after publication", () => {
+    const spanishPosts = readApprovedBlogPostsByLanguage("es", "production", "main");
 
-    expect(spanishDrafts).toContainEqual(
+    expect(spanishPosts).toContainEqual(
       expect.objectContaining({
+        canonicalUrl: "https://juliovela.com/es/blog/como-elegir-la-herramienta-ia-adecuada",
         language: "es",
         routePath: "/es/blog/como-elegir-la-herramienta-ia-adecuada",
         slug: "como-elegir-la-herramienta-ia-adecuada",
-        status: "draft",
+        status: "published",
+        translationOf: "choosing-the-right-ai-tool",
       }),
     );
   });
 
-  it("blocks Spanish drafts from production content resolution", () => {
+  it("resolves the published Spanish article in production", () => {
     expect(
       findVisibleBlogPostByLanguage("como-elegir-la-herramienta-ia-adecuada", "es", "production", "main"),
-    ).toBeNull();
+    ).toEqual(
+      expect.objectContaining({
+        language: "es",
+        routePath: "/es/blog/como-elegir-la-herramienta-ia-adecuada",
+        status: "published",
+      }),
+    );
+  });
+
+  it("has no Spanish drafts after the first Spanish article publication", () => {
+    expect(readDraftBlogPostsByLanguage("es", "preview", "feature/spanish-blog-preview")).toEqual([]);
   });
 });
